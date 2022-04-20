@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener {
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         wifiButton.setOnClickListener(this)
 
         mLocationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        if(!checkLocationPermission()){
+            ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+        }
     }
 
     override fun onResume() {
@@ -95,23 +99,31 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         when (p0?.id) {
             R.id.button_gps -> {
                 isTypeWifi = false
-                if (checkLocationPermission())
+                if (checkLocationPermission()) {
                     mLocationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
                         0,
                         0.0f,
                         this
                     )
+                }
+                else{
+                    ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+                }
             }
             R.id.button_wifi -> {
                 isTypeWifi = true
-                if (checkLocationPermission())
+                if (checkLocationPermission()) {
                     mLocationManager.requestLocationUpdates(
                         LocationManager.NETWORK_PROVIDER,
                         0,
                         0.0f,
                         this
                     )
+                }
+                else{
+                    ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+                }
             }
         }
     }
