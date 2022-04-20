@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         const val TAG = "PlaceSample"
     }
 
+    // View Variable
     private lateinit var mLocationManager: LocationManager
     private lateinit var mWifiAccuracyTextView: TextView
     private lateinit var mWifiLatitudeTextView: TextView
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        /*
+        Assign Views
+        TODO(change code to binding)
+         */
         mWifiLatitudeTextView = findViewById(R.id.text_view_wifi_latitude_value)
         mWifiLongitudeTextView = findViewById(R.id.text_view_wifi_longitude_value)
         mWifiAccuracyTextView = findViewById(R.id.text_view_wifi_accuracy_value)
@@ -49,9 +55,18 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         val wifiButton: Button = findViewById(R.id.button_wifi)
         wifiButton.setOnClickListener(this)
 
+
+        // Declare Location Manger
         mLocationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        if(!checkLocationPermission()){
-            ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+
+
+        // Ask for location permission if permission is not granted
+        if (!checkLocationPermission()) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                101
+            )
         }
     }
 
@@ -69,6 +84,11 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         }
     }
 
+
+    /*
+    Update View with location information according to selection
+    and stop location updates
+     */
     override fun onLocationChanged(p0: Location) {
         Log.d(TAG, "plog onLocationChanged")
         if (isTypeWifi) {
@@ -94,7 +114,11 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         }
     }
 
-
+    /*
+    When Button is clicked check permission
+    and request location information according to selection
+    If permission is not granted ask for permission
+     */
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.button_gps -> {
@@ -106,9 +130,12 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
                         0.0f,
                         this
                     )
-                }
-                else{
-                    ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        101
+                    )
                 }
             }
             R.id.button_wifi -> {
@@ -120,14 +147,21 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
                         0.0f,
                         this
                     )
-                }
-                else{
-                    ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),101)
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        101
+                    )
                 }
             }
         }
     }
 
+
+    /*
+    Check if App has permission for location permission
+     */
     private fun checkLocationPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 this,
