@@ -23,15 +23,17 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
     }
 
     // View Binding
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+
     // Location Manager
     private lateinit var mLocationManager: LocationManager
+
     // Location Type variable
     private var isTypeWifi = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
             binding.textViewGpsLatitudeValue.text = p0.latitude.toString()
             binding.textViewGpsLongitudeValue.text = p0.longitude.toString()
             binding.textViewGpsAccuracyValue.text = p0.accuracy.toString()
-            binding.textViewGpsAltitudeValue .text = p0.altitude.toString()
+            binding.textViewGpsAltitudeValue.text = p0.altitude.toString()
         }
         if (checkLocationPermission())
             mLocationManager.removeUpdates(this)
