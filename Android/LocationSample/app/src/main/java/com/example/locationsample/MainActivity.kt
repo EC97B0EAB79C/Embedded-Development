@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
             binding.textViewGpsLatitudeValue.text = p0.latitude.toString()
             binding.textViewGpsLongitudeValue.text = p0.longitude.toString()
             binding.textViewGpsAccuracyValue.text = p0.accuracy.toString()
-            binding.textViewGpsAltitudeValue.text = p0.altitude.toString()
+            binding.textViewGpsAltitudeValue .text = p0.altitude.toString()
         }
         if (checkLocationPermission())
             mLocationManager.removeUpdates(this)

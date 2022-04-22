@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // Sensor Variable
     private lateinit var sensorManager: SensorManager
 
-    // Orientation variables
+    // Orientation Variables
     private var mAccelerationValue = FloatArray(3)
     private var mGeoMagneticValue = FloatArray(3)
     private var mOrientationValue = FloatArray(3)
@@ -26,15 +26,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var mOutRotationMatrix = FloatArray(9)
     private var mInclinationMatrix = FloatArray(9)
 
-    // View variables
+    // View Variable
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mCheckBoxOrientation: CheckBox
-    private lateinit var mAzimuthText: TextView
-    private lateinit var mRollText: TextView
-    private lateinit var mPitchText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // View binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -51,34 +48,28 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
         /*
-        Assign Views
-        TODO(change code to binding)
+        Set Button's OnClickListener
+        to update text when checkbox is unselected
          */
-        mAzimuthText = findViewById(R.id.text_view_azimuth)
-        mRollText = findViewById(R.id.text_view_roll)
-        mPitchText = findViewById(R.id.text_view_pitch)
-
-        val buttonOrientation: Button = findViewById(R.id.button_orientation)
-        buttonOrientation.setOnClickListener {
-            if (!mCheckBoxOrientation.isChecked) {
+        binding.buttonOrientation.setOnClickListener {
+            if (!binding.checkboxOrientation.isChecked) {
                 updateText()
             }
         }
-        mCheckBoxOrientation = findViewById(R.id.checkbox_orientation)
     }
 
 
     /*
     Define action for sensor input
     When sensor value changes, this function updates values
-    And when real time display is on, call updateText function to update ViewText
+    And when real time display is on, call updateText function to update TextView
      */
     override fun onSensorChanged(p0: SensorEvent?) {
         when (p0?.sensor?.type) {
             Sensor.TYPE_ACCELEROMETER -> mAccelerationValue = p0.values
             Sensor.TYPE_MAGNETIC_FIELD -> mGeoMagneticValue = p0.values
         }
-        if (mCheckBoxOrientation.isChecked) {
+        if (binding.checkboxOrientation.isChecked) {
             updateText()
         }
     }
@@ -106,10 +97,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         )
         SensorManager.getOrientation(mOutRotationMatrix, mOrientationValue)
 
-        mAzimuthText.text =
+        binding.textViewAzimuth.text =
             (floor(Math.toDegrees(mOrientationValue[0].toDouble()))).toString()
-        mPitchText.text =
+        binding.textViewPitch.text =
             (floor(Math.toDegrees(mOrientationValue[1].toDouble()))).toString()
-        mRollText.text = (floor(Math.toDegrees(mOrientationValue[2].toDouble()))).toString()
+        binding.textViewRoll.text =
+            (floor(Math.toDegrees(mOrientationValue[2].toDouble()))).toString()
     }
 }
