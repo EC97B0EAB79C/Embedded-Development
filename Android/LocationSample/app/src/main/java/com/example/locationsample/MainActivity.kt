@@ -9,51 +9,35 @@ import android.location.LocationProvider
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import com.example.locationsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener {
     companion object {
         const val TAG = "PlaceSample"
     }
 
-    // View Variable
+    // View Binding
+    private lateinit var binding:ActivityMainBinding
+    // Location Manager
     private lateinit var mLocationManager: LocationManager
-    private lateinit var mWifiAccuracyTextView: TextView
-    private lateinit var mWifiLatitudeTextView: TextView
-    private lateinit var mWifiLongitudeTextView: TextView
-    private lateinit var mWifiAltitudeTextView: TextView
-    private lateinit var mGpsAccuracyTextView: TextView
-    private lateinit var mGpsLatitudeTextView: TextView
-    private lateinit var mGpsLongitudeTextView: TextView
-    private lateinit var mGpsAltitudeTextView: TextView
+    // Location Type variable
     private var isTypeWifi = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
-        /*
-        Assign Views
-        TODO(change code to binding)
-         */
-        mWifiLatitudeTextView = findViewById(R.id.text_view_wifi_latitude_value)
-        mWifiLongitudeTextView = findViewById(R.id.text_view_wifi_longitude_value)
-        mWifiAccuracyTextView = findViewById(R.id.text_view_wifi_accuracy_value)
-        mWifiAltitudeTextView = findViewById(R.id.text_view_wifi_altitude_value)
-        mGpsLatitudeTextView = findViewById(R.id.text_view_gps_latitude_value)
-        mGpsLongitudeTextView = findViewById(R.id.text_view_gps_longitude_value)
-        mGpsAccuracyTextView = findViewById(R.id.text_view_gps_accuracy_value)
-        mGpsAltitudeTextView = findViewById(R.id.text_view_gps_altitude_value)
-
-        val gpsButton: Button = findViewById(R.id.button_gps)
-        gpsButton.setOnClickListener(this)
-        val wifiButton: Button = findViewById(R.id.button_wifi)
-        wifiButton.setOnClickListener(this)
+        // Set button OnClickListener
+        binding.buttonGps.setOnClickListener(this)
+        binding.buttonWifi.setOnClickListener(this)
 
 
         // Declare Location Manger
@@ -92,15 +76,15 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
     override fun onLocationChanged(p0: Location) {
         Log.d(TAG, "plog onLocationChanged")
         if (isTypeWifi) {
-            mWifiLatitudeTextView.text = p0.latitude.toString()
-            mWifiLongitudeTextView.text = p0.longitude.toString()
-            mWifiAccuracyTextView.text = p0.accuracy.toString()
-            mWifiAltitudeTextView.text = p0.altitude.toString()
+            binding.textViewWifiLatitudeValue.text = p0.latitude.toString()
+            binding.textViewWifiLongitudeValue.text = p0.longitude.toString()
+            binding.textViewWifiAccuracyValue.text = p0.accuracy.toString()
+            binding.textViewWifiAltitudeValue.text = p0.altitude.toString()
         } else {
-            mGpsLatitudeTextView.text = p0.latitude.toString()
-            mGpsLongitudeTextView.text = p0.longitude.toString()
-            mGpsAccuracyTextView.text = p0.accuracy.toString()
-            mGpsAltitudeTextView.text = p0.altitude.toString()
+            binding.textViewGpsLatitudeValue.text = p0.latitude.toString()
+            binding.textViewGpsLongitudeValue.text = p0.longitude.toString()
+            binding.textViewGpsAccuracyValue.text = p0.accuracy.toString()
+            binding.textViewGpsAltitudeValue.text = p0.altitude.toString()
         }
         if (checkLocationPermission())
             mLocationManager.removeUpdates(this)
