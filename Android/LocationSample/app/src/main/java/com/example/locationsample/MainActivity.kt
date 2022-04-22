@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
         const val TAG = "PlaceSample"
     }
 
-    // View Binding
+    // View Variable
     private lateinit var binding: ActivityMainBinding
 
     // Location Manager
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
