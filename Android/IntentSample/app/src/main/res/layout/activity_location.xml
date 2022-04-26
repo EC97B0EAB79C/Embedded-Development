@@ -13,6 +13,7 @@
         android:text="GPS"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/gps_latitude"
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
         android:text="latitude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gps" />
+
     <TextView
         android:id="@+id/gps_longitude"
         android:layout_width="wrap_content"
@@ -27,6 +29,7 @@
         android:text="longitude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gps_latitude" />
+
     <TextView
         android:id="@+id/gps_accuracy"
         android:layout_width="wrap_content"
@@ -34,6 +37,7 @@
         android:text="accuracy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gps_longitude" />
+
     <TextView
         android:id="@+id/gps_altitude"
         android:layout_width="wrap_content"
@@ -49,6 +53,7 @@
         android:text="WiFi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gps_altitude" />
+
     <TextView
         android:id="@+id/wifi_latitude"
         android:layout_width="wrap_content"
@@ -56,6 +61,7 @@
         android:text="latitude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifi" />
+
     <TextView
         android:id="@+id/wifi_longitude"
         android:layout_width="wrap_content"
@@ -63,6 +69,7 @@
         android:text="longitude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifi_latitude" />
+
     <TextView
         android:id="@+id/wifi_accuracy"
         android:layout_width="wrap_content"
@@ -86,6 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/gps_latitude"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_gps_longitude_value"
         android:layout_width="wrap_content"
@@ -93,6 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/gps_longitude"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_gps_accuracy_value"
         android:layout_width="wrap_content"
@@ -100,6 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/gps_accuracy"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_gps_altitude_value"
         android:layout_width="wrap_content"
@@ -115,6 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/wifi_latitude"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_wifi_longitude_value"
         android:layout_width="wrap_content"
@@ -122,6 +133,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/wifi_longitude"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_wifi_accuracy_value"
         android:layout_width="wrap_content"
@@ -129,6 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/wifi_accuracy"
         tools:text="69" />
+
     <TextView
         android:id="@+id/text_view_wifi_altitude_value"
         android:layout_width="wrap_content"
@@ -152,9 +165,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="WiFi"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_gps"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button_gps" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

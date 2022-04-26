@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonOrientation.setOnClickListener {
-            val intent: Intent = Intent(this,OrientationActivity::class.java)
+            val intent: Intent = Intent(this, OrientationActivity::class.java)
             startActivity(intent)
         }
         binding.buttonLocation.setOnClickListener {
-            val intent: Intent = Intent(this,LocationActivity::class.java)
+            val intent: Intent = Intent(this, LocationActivity::class.java)
             startActivity(intent)
         }
     }

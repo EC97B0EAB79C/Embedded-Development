@@ -12,9 +12,10 @@ import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 
-public class HttpGetTask(private val parentActivity: Activity, private val textView: TextView) : AsyncTask<Void, Void, String>() {
+public class HttpGetTask(private val parentActivity: Activity, private val textView: TextView) :
+    AsyncTask<Void, Void, String>() {
 
-//    private val uri: String = "https://www.google.com"
+    //    private val uri: String = "https://www.google.com"
     private val uri: String = "https://www.yamagiwalab.jp/~yama/KPK/Hello.html"
     private lateinit var mDialog: ProgressDialog
 
@@ -55,8 +56,8 @@ public class HttpGetTask(private val parentActivity: Activity, private val textV
             http!!.requestMethod = "GET"
             http.connect()
 
-            src=http.inputStream.bufferedReader().readText()
-            
+            src = http.inputStream.bufferedReader().readText()
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {

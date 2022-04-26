@@ -6,4 +6,4 @@ This repository is a collection of codes written for the class "Practical develo
 
 1. All Android Project code is written in Kotlin instead of JAVA.
 2. View [Binding](https://developer.android.com/topic/libraries/view-binding) will be used instead of using findViewById method
- 
+3. Planned to replace deprecated funtions
