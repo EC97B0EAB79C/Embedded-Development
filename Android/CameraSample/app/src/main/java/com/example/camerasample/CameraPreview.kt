@@ -10,7 +10,7 @@ import java.lang.Exception
 class CameraPreview(context: Context?) : SurfaceView(context), SurfaceHolder.Callback {
 
     companion object {
-        const val TAG = "CameraSample"
+        const val TAG = "CameraSample SurfaceView"
     }
 
     private var surfaceHolder: SurfaceHolder = holder
