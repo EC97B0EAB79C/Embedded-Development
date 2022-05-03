@@ -26,8 +26,9 @@ import com.example.camerasample.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     companion object{
+        // Log Tag
         private const val TAG="CameraSample MainActivity"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        // Permission variables
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
@@ -35,18 +36,24 @@ class MainActivity : AppCompatActivity() {
             ).toTypedArray()
     }
 
+    // View Binding Variable
     private lateinit var binding:ActivityMainBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // View Binding
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set Full Screen
         val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView) ?: return
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
 
+        /*
+        Run camera if camera permission is granted
+        request permission if permission is not granted
+         */
         if(allPermissionsGranted()){
             startCamera()
         }
@@ -55,6 +62,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /*
+    Starts Camera
+    Set Camera Preview
+     */
     @SuppressLint("LongLogTag")
     private fun startCamera(){
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -83,10 +94,16 @@ class MainActivity : AppCompatActivity() {
          */
     }
 
+    // Check if all permission is granted
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    /*
+    Runs after permission request
+    runs camera if permission is granted
+    closes app when permission is not granted
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
