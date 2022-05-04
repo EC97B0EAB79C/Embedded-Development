@@ -15,19 +15,9 @@ import java.net.URL
 public class HttpGetTask(private val parentActivity: Activity, private val textView: TextView) :
     AsyncTask<Void, Void, String>() {
 
-    //    private val uri: String = "https://www.google.com"
     private val uri: String = "https://www.yamagiwalab.jp/~yama/KPK/Hello.html"
     private lateinit var mDialog: ProgressDialog
 
-    /*
-    private lateinit var textView: TextView
-    private lateinit var parentActivity: Activity
-
-    fun HttpGetTask(_parentActivity: Activity, _textView: TextView) {
-        parentActivity = _parentActivity
-        textView = _textView
-    }
-    */
     override fun onPreExecute() {
         super.onPreExecute()
         mDialog = ProgressDialog(parentActivity)
