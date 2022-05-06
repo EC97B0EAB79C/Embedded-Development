@@ -9,10 +9,6 @@ import kotlin.math.sqrt
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    companion object {
-
-    }
-
     enum class TOUCHTYPE {
         NONE, TOUCH, DRAG, PINCH
     }
@@ -33,8 +29,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    /*
+    Function ran when TouchEvent is occurred
+    Displays information according to number of fingers touched
+     */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // Pinch when more than two fingers are detected
         when (event!!.action and MotionEvent.ACTION_MASK) {
+            // Additional finger detected
             MotionEvent.ACTION_POINTER_DOWN -> {
                 if (event.pointerCount >= 2) {
                     pinchStartDistance = getPinchDistance(event)
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            // Movement detected
             MotionEvent.ACTION_MOVE -> {
                 if (touchMode == TOUCHTYPE.PINCH && pinchStartDistance > 0) {
                     touchTypeString = "PINCH"
@@ -57,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                     touchLengthString = "length: " + getPinchDistance(event)
                 }
             }
+            // Additional finger removed
             MotionEvent.ACTION_POINTER_UP -> {
                 if (touchMode == TOUCHTYPE.PINCH) {
                     touchTypeString = "PINCH"
@@ -68,7 +72,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Touch and Drag when one finger is detected
         when (event.action and MotionEvent.ACTION_MASK) {
+            // Finger detected
             MotionEvent.ACTION_DOWN -> {
                 if (touchMode == TOUCHTYPE.NONE && event.pointerCount == 1) {
                     touchMode = TOUCHTYPE.TOUCH
@@ -80,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                     touchLengthString = "length: " + getDragDistance(event)
                 }
             }
+            // Movement detected
             MotionEvent.ACTION_MOVE -> {
                 if (touchMode == TOUCHTYPE.DRAG || touchMode == TOUCHTYPE.TOUCH) {
                     touchMode = TOUCHTYPE.DRAG
@@ -89,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                     touchLengthString = "length: " + getDragDistance(event)
                 }
             }
+            // Finger removed
             MotionEvent.ACTION_UP -> {
                 if (touchMode == TOUCHTYPE.TOUCH) {
                     touchTypeString = "TOUCH"
@@ -115,12 +123,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // Calculate distance between dragged points
     private fun getDragDistance(event: MotionEvent?): Double {
         val dragLengthX: Double = (event!!.getX(0) - dragStartX).toDouble()
         val dragLengthY: Double = (event!!.getY(0) - dragStartY).toDouble()
         return sqrt(dragLengthX * dragLengthX + dragLengthY * dragLengthY)
     }
 
+    // Calculate distance between fingers
     private fun getPinchDistance(event: MotionEvent?): Double {
         val x: Double = (event!!.getX(0) - event.getX(1)).toDouble()
         val y: Double = (event!!.getY(0) - event.getY(1)).toDouble()
