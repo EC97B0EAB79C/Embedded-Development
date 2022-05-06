@@ -31,71 +31,67 @@ import java.net.URL
 
 class HttpGetTask(private val parentActivity: Activity, private val textView: TextView) :
     ViewModel() {
-    companion object {
-        private val uri: String = "https://www.yamagiwalab.jp/~yama/KPK/Hello.html"
-        //private val uri: String = "https://www.google.com"
-    }
-
-    private var src: String = ""
-    private lateinit var mDialog: ProgressDialog
+    private val uri: String = "https://www.yamagiwalab.jp/~yama/KPK/Hello.html"
+    //private val uri: String = "https://www.google.com"
 
     fun getWeb() {
         viewModelScope.launch {
-            /*
-            mDialog = ProgressDialog(parentActivity)
-            mDialog.setMessage("")
-            mDialog.show()
-            textView.text = getHttp()
-            mDialog.dismiss()
-
-             */
-
+            // Create ProgressBarView
             val progressBar = ProgressBar(parentActivity)
             progressBar.isIndeterminate = true
             progressBar.setPadding(32)
 
+            // Create AlertDialog Builder
             val builder: AlertDialog.Builder = AlertDialog.Builder(parentActivity)
             builder.setView(progressBar)
 
+            // Create AlertDialog and show
             val dialog: AlertDialog = builder.create()
             dialog.show()
-            dialog.window?.setLayout(300,300)
+            dialog.window?.setLayout(300, 300)
+            // set AlertDialog and set screen untouchable
             dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             parentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+            // call and get html
             textView.text = getHttp()
+
+            // hide AlertDialog and set screen touchable
             dialog.hide()
             parentActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
     }
 
+    /*
+    Creates HttpURLConnection and gets webpage
+    uses Coroutine Scope to allow network connection concurrently
+    sleep function is used to check AlertDialog
+     */
     private suspend fun getHttp(): String {
         var src: String = ""
         withContext(Dispatchers.IO) {
             sleep(5000)
+
+            var http: HttpURLConnection? = null
+            var inputStream: InputStream? = null
+
             try {
-                var http: HttpURLConnection? = null
-                var inputStream: InputStream? = null
+                val url: URL = URL(uri)
+                http = url.openConnection() as HttpURLConnection?
+                http!!.requestMethod = "GET"
+                http.connect()
 
-                try {
-                    val url: URL = URL(uri)
-                    http = url.openConnection() as HttpURLConnection?
-                    http!!.requestMethod = "GET"
-                    http.connect()
+                src = http.inputStream.bufferedReader().readText()
 
-                    src = http.inputStream.bufferedReader().readText()
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    try {
-                        http?.disconnect()
-                        inputStream?.close()
-                    } catch (ignored: Exception) {
-
-                    }
-                }
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                try {
+                    http?.disconnect()
+                    inputStream?.close()
+                } catch (ignored: Exception) {
+
+                }
             }
         }
         return src

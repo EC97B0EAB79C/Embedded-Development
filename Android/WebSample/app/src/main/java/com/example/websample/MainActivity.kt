@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             Log.d(TAG, "wlog onClick()")
             val task: HttpGetTask = HttpGetTask(this, binding.textViewReturn)
-
-            //task.execute()
-
             task.getWeb()
         }
     }
