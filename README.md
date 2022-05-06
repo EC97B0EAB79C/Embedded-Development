@@ -9,5 +9,13 @@ This repository is a collection of codes written for the class "Practical develo
 3. Planned to replace deprecated funtions
     1. List of replaced functions could be found [here](./Android/replaced.md)
 
+### Project List
+1. Orientation Sample
+1. Location Sample
+1. Intent Sample
+1. Web Sample
+1. Camera Sample
+1. Touch Sample
+
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**
