@@ -1,5 +1,6 @@
 package com.example.camerasample
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Camera
 import android.util.Log
@@ -21,6 +22,7 @@ class CameraPreview(context: Context?) : SurfaceView(context), SurfaceHolder.Cal
     }
 
 
+    @SuppressLint("LongLogTag")
     override fun surfaceCreated(p0: SurfaceHolder) {
         try {
             val openCameraType: Int = android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK
