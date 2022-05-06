@@ -6,6 +6,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.location.LocationProvider
+import android.location.provider.ProviderProperties
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity(), LocationListener, View.OnClickListener
             mLocationManager.removeUpdates(this)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
         when (status) {
             LocationProvider.AVAILABLE -> Log.v(TAG, "AVAILABLE")

@@ -40,35 +40,29 @@ class MainActivity : AppCompatActivity() {
                     pinchStartDistance = getPinchDistance(event)
                     if (pinchStartDistance > 50f) {
                         touchMode = TOUCHTYPE.PINCH
-                        with(binding) {
-                            touchTypeString = "PINCH"
-                            touchPoint1String =
-                                "x: " + event.getX(0) + ", y: " + event.getY(0)
-                            touchPoint2String =
-                                "x: " + event.getX(1) + ", y: " + event.getY(1)
-                            touchLengthString = "length:" + getPinchDistance(event)
-                        }
+                        touchTypeString = "PINCH"
+                        touchPoint1String =
+                            "x: " + event.getX(0) + ", y: " + event.getY(0)
+                        touchPoint2String =
+                            "x: " + event.getX(1) + ", y: " + event.getY(1)
+                        touchLengthString = "length: " + getPinchDistance(event)
                     }
                 }
             }
             MotionEvent.ACTION_MOVE -> {
                 if (touchMode == TOUCHTYPE.PINCH && pinchStartDistance > 0) {
-                    with(binding) {
-                        touchTypeString = "PINCH"
-                        touchPoint1String = "x: " + event.getX(0) + ", y: " + event.getY(0)
-                        touchPoint2String = "x: " + event.getX(1) + ", y: " + event.getY(1)
-                        touchLengthString = "length:" + getPinchDistance(event)
-                    }
+                    touchTypeString = "PINCH"
+                    touchPoint1String = "x: " + event.getX(0) + ", y: " + event.getY(0)
+                    touchPoint2String = "x: " + event.getX(1) + ", y: " + event.getY(1)
+                    touchLengthString = "length: " + getPinchDistance(event)
                 }
             }
             MotionEvent.ACTION_POINTER_UP -> {
                 if (touchMode == TOUCHTYPE.PINCH) {
-                    with(binding) {
-                        touchTypeString = "PINCH"
-                        touchPoint1String = "x: " + event.getX(0) + ", y: " + event.getY(0)
-                        touchPoint2String = "x: " + event.getX(1) + ", y: " + event.getY(1)
-                        touchLengthString = "length:" + getPinchDistance(event)
-                    }
+                    touchTypeString = "PINCH"
+                    touchPoint1String = "x: " + event.getX(0) + ", y: " + event.getY(0)
+                    touchPoint2String = "x: " + event.getX(1) + ", y: " + event.getY(1)
+                    touchLengthString = "length: " + getPinchDistance(event)
                     touchMode = TOUCHTYPE.NONE
                 }
             }
@@ -80,23 +74,19 @@ class MainActivity : AppCompatActivity() {
                     touchMode = TOUCHTYPE.TOUCH
                     dragStartX = event.getX(0)
                     dragStartY = event.getY(0)
-                    with(binding) {
-                        touchTypeString = "TOUCH"
-                        touchPoint1String = "x: $dragStartX, y: $dragStartY"
-                        touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
-                        touchLengthString = "length:" + getDragDistance(event)
-                    }
+                    touchTypeString = "TOUCH"
+                    touchPoint1String = "x: $dragStartX, y: $dragStartY"
+                    touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
+                    touchLengthString = "length: " + getDragDistance(event)
                 }
             }
             MotionEvent.ACTION_MOVE -> {
                 if (touchMode == TOUCHTYPE.DRAG || touchMode == TOUCHTYPE.TOUCH) {
                     touchMode = TOUCHTYPE.DRAG
-                    with(binding) {
-                        touchTypeString = "DRAG"
-                        touchPoint1String = "x: $dragStartX, y: $dragStartY"
-                        touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
-                        touchLengthString = "length:" + getDragDistance(event)
-                    }
+                    touchTypeString = "DRAG"
+                    touchPoint1String = "x: $dragStartX, y: $dragStartY"
+                    touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
+                    touchLengthString = "length: " + getDragDistance(event)
                 }
             }
             MotionEvent.ACTION_UP -> {
@@ -105,15 +95,11 @@ class MainActivity : AppCompatActivity() {
                 } else if (touchMode == TOUCHTYPE.DRAG) {
                     touchTypeString = "DRAG"
                 }
-                with(binding) {
-                    touchPoint1String = "x: $dragStartX, y: $dragStartY"
-                    touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
-                    touchLengthString = "length:" + getDragDistance(event)
-                }
+                touchPoint1String = "x: $dragStartX, y: $dragStartY"
+                touchPoint2String = "x: " + event.getX(0) + ", y: " + event.getY(0)
+                touchLengthString = "length: " + getDragDistance(event)
                 touchMode = TOUCHTYPE.NONE
             }
-
-
 
         }
         with(binding) {

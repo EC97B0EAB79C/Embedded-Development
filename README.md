@@ -10,12 +10,13 @@ This repository is a collection of codes written for the class "Practical develo
     1. List of replaced functions could be found [here](./Android/replaced.md)
 
 ### Project List
-1. Orientation Sample
-1. Location Sample
-1. Intent Sample
-1. Web Sample
-1. Camera Sample
-1. Touch Sample
+1. [Orientation Sample](./Android/OrientationSample)
+1. [Location Sample](./Android/LocationSample)
+1. [Intent Sample](./Android/IntentSample)
+1. [Web Sample](./Android/WebSample)
+1. [Camera Sample](./Android/CameraSample)
+1. [Touch Sample](./Android/TouchSample)
+1. []
 
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**

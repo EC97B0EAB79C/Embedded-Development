@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         // Log Tag
-        private const val TAG="CameraSample MainActivity"
+        private const val TAG="MainActivity"
         // Permission variables
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
     Starts Camera
     Set Camera Preview
      */
-    @SuppressLint("LongLogTag")
     private fun startCamera(){
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener(Runnable {
