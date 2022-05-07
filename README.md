@@ -16,7 +16,7 @@ This repository is a collection of codes written for the class "Practical develo
 1. [Web Sample](./Android/WebSample)
 1. [Camera Sample](./Android/CameraSample)
 1. [Touch Sample](./Android/TouchSample)
-1. []
+1. [The ULTRA DELUXE Alarm](./Android/TheULTRADELUXEAlarm/)
 
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**
