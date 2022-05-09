@@ -13,6 +13,7 @@ This repository is a collection of codes written for the class "Practical develo
 1. [Orientation Sample](./Android/OrientationSample)
 1. [Location Sample](./Android/LocationSample)
 1. [Intent Sample](./Android/IntentSample)
+    1. [Fragment Sample](./Android/FragmentSample)
 1. [Web Sample](./Android/WebSample)
 1. [Camera Sample](./Android/CameraSample)
 1. [Touch Sample](./Android/TouchSample)
