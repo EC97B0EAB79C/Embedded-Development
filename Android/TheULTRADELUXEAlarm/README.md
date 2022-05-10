@@ -1,5 +1,5 @@
 # The ULTRA DELUXE Alarm
-
+An alarm app made with various of sensors for Android developemint assignment.
 
 ## Used Features
 
