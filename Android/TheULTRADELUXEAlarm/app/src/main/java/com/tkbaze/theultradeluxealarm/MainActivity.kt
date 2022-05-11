@@ -1,12 +1,15 @@
 package com.tkbaze.theultradeluxealarm
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.tkbaze.theultradeluxealarm.databinding.ActivityMainBinding
+import com.tkbaze.theultradeluxealarm.init.InitActivity
 
 class MainActivity : AppCompatActivity() {
     companion object{
@@ -22,10 +25,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    // Placeholder variables
+    private var initialized=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(initialized){
+
+        }
+        else{
+            val intent: Intent= Intent(this,InitActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     // Check if all permission is granted
