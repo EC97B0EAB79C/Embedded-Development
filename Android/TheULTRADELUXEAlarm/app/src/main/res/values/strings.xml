@@ -4,4 +4,10 @@
     <string name="next">next</string>
     <string name="prev">prev</string>
     <string name="finish">finish</string>
+
+    <!-- String for Initialization -->
+    <string name="measure_start">Start Measuring</string>
+    <string name="measure_stop">Stop Measuring</string>
+    <string name="inst_light_on">Turn on the Room\'s Light</string>
+    <string name="inst_light_off">Turn off Room\'s Light</string>
 </resources>

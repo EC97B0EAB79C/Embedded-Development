@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentTransaction
+import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.databinding.ActivityInitBinding
+import com.tkbaze.theultradeluxealarm.init.ui.light.InitLightFragment
 
 /*
 runs initial settings for the app
@@ -72,5 +75,11 @@ class InitActivity : AppCompatActivity() {
             binding.buttonFin.visibility=Button.INVISIBLE
             binding.buttonNext.visibility=Button.VISIBLE
         }
+
+        val transaction:FragmentTransaction=supportFragmentManager.beginTransaction()
+        when(viewModel.progress){
+            0->transaction.replace(R.id.settingFragment,InitLightFragment())
+        }
+        transaction.commit()
     }
 }
