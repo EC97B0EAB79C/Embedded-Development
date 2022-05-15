@@ -5,6 +5,10 @@
     <string name="prev">prev</string>
     <string name="finish">finish</string>
 
+    <!-- String for Alarm -->
+    <string name="sel_time">Set Alarm Time</string>
+
+
     <!-- String for Initialization -->
     <string name="measure_start">Start Measuring</string>
     <string name="measure_stop">Stop Measuring</string>

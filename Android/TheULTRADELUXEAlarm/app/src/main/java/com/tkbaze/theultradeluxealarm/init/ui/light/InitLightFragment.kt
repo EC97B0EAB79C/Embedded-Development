@@ -24,9 +24,9 @@ class InitLightFragment : Fragment(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var light: Sensor? = null
 
-    private var measuring = false
-
     private lateinit var viewModel: ViewModel
+
+    private var measuring = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
