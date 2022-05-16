@@ -68,6 +68,7 @@ class InitActivity : AppCompatActivity() {
 
         // Next and Finish button visibility
         if (viewModel.progress==viewModel.totalProgress){
+            binding.buttonFin.animate()
             binding.buttonFin.visibility=Button.VISIBLE
             binding.buttonNext.visibility=Button.INVISIBLE
         }

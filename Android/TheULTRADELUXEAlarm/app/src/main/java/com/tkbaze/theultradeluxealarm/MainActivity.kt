@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(!initialized){
+        if(initialized){
 
         }
         else{

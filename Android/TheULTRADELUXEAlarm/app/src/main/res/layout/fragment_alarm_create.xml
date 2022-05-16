@@ -6,22 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".alarm.create.AlarmCreateFragment">
 
-    <TextView
+    <Button
         android:id="@+id/textTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:text="08:00"
+        android:textSize="64sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/buttonTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/setAlarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTemp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
