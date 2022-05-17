@@ -45,4 +45,49 @@
         android:text="ToggleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggle_button_led_4" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LED1"
+        app:layout_constraintBottom_toBottomOf="@+id/toggle_button_led_1"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_button_led_1"
+        app:layout_constraintTop_toTopOf="@+id/toggle_button_led_1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LED2"
+        app:layout_constraintBottom_toBottomOf="@+id/toggle_button_led_2"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_button_led_2"
+        app:layout_constraintTop_toTopOf="@+id/toggle_button_led_2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LED3"
+        app:layout_constraintBottom_toBottomOf="@+id/toggle_button_led_3"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_button_led_3"
+        app:layout_constraintTop_toTopOf="@+id/toggle_button_led_3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LED4"
+        app:layout_constraintBottom_toBottomOf="@+id/toggle_button_led_4"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_button_led_4"
+        app:layout_constraintTop_toTopOf="@+id/toggle_button_led_4" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LED5"
+        app:layout_constraintBottom_toBottomOf="@+id/toggle_button_led_5"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_button_led_5"
+        app:layout_constraintTop_toTopOf="@+id/toggle_button_led_5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
