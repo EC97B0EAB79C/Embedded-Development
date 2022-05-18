@@ -10,22 +10,27 @@
 int main(){
     int dev_fd;
     int data;
+
+    // Set up wiringPi I2C
     dev_fd=wiringPiI2CSetup(0x48);
     if(dev_fd<0){
         printf("Error: I2C Setup\n");
         return -1;
     }
 
+    // Start
     wiringPiI2CWrite(dev_fd,0x51);
     usleep(5000);
 
+    // Read
     data=wiringPiI2CReadReg16(dev_fd,0xAA);
     printf("data=0x%x\n",data);
 
+    // Stop
     wiringPiI2CWrite(dev_fd,0x22);
 
+    // change 
     float temp=0.f;
-
     if((data&(1<<0))!=0)temp+=1;
     if((data&(1<<1))!=0)temp+=2;
     if((data&(1<<2))!=0)temp+=4;

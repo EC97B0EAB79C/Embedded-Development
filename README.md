@@ -23,7 +23,14 @@ This repository is a collection of codes written for the class "Practical develo
 ## WiringPi
 Interaction with Raspberry Pi's GPIO(General Purpose I/O) with WiringPi
 ### Project List
-1. [ledtest](./WiringPi/ledtest.c)
+1. [ledtest](./WiringPi/ledtest.c):
+C program for switching LED ON/OFF on Raspberry Pi
+1. [swtest](./WiringPi/swtest.c):
+C program for reading switch ON/OFF on Raspberry Pi
+1. [i2c_ds1631](./WiringPi/i2c_ds1631.c):
+C program for i2c temperature sensor on Raspberry Pi
+1. [ledtest php](./WiringPi/ledtest.php):
+php program for running ledtest program using url
 
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**
