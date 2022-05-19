@@ -19,7 +19,7 @@ class AlarmCreateFragment : Fragment() {
     private val binding get() = _binding!!
 
     // Placeholder variables
-    val tempId = 3808
+    private val tempId = 3808
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +35,12 @@ class AlarmCreateFragment : Fragment() {
         val picker =
             MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(8).setMinute(0)
                 .setTitleText(R.string.sel_time).setInputMode(INPUT_MODE_KEYBOARD).build()
+
         picker.addOnPositiveButtonClickListener {
             binding.textTemp.text = String.format("%02d:%02d", picker.hour, picker.minute)
         }
 
-        binding.buttonTemp.setOnClickListener {
+        binding.buttonSetAlarm.setOnClickListener {
             val alarm: Alarm = Alarm(tempId, picker.hour, picker.minute)
             alarm.create(requireContext())
         }
@@ -47,7 +48,7 @@ class AlarmCreateFragment : Fragment() {
         binding.textTemp.setOnClickListener {
             picker.show(childFragmentManager, "tag")
         }
-
+        picker.show(childFragmentManager, "tag")
         return binding.root
     }
 
