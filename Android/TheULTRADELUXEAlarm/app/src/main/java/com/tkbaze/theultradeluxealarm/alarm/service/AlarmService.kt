@@ -31,7 +31,7 @@ class AlarmService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("Service", "Service Started")
         val notificationIntent = Intent(this, AlarmRingActivity::class.java)
-        notificationIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             this,
             0,
@@ -45,7 +45,7 @@ class AlarmService : Service() {
                 .setContentText("Alarm temp text")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setFullScreenIntent(pendingIntent,true)
+                .setFullScreenIntent(pendingIntent, true)
                 .build()
 
 
@@ -67,6 +67,7 @@ class AlarmService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("Service", "Service Destroyed")
     }
 
     override fun onBind(p0: Intent?): IBinder? {

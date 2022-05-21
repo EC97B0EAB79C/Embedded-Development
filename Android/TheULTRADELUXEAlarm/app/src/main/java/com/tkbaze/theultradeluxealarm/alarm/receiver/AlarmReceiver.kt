@@ -26,7 +26,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
             Log.d("Receive", "Service start")
 
-            val intent=Intent(p0!!,AlarmService::class.java)
+            val intent = Intent(p0!!, AlarmService::class.java)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 p0.startForegroundService(intent)
             } else {

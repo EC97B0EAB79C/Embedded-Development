@@ -51,35 +51,36 @@ class InitActivity : AppCompatActivity() {
      */
     private fun updateUI() {
         // Progress bar
-        if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.N){
-            binding.progressBar.setProgress(((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt(),true)
-        }
-        else{
-            binding.progressBar.progress = ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            binding.progressBar.setProgress(
+                ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt(),
+                true
+            )
+        } else {
+            binding.progressBar.progress =
+                ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt()
         }
 
         // Previous button visibility
         if (viewModel.progress > 0) {
             binding.buttonPrev.visibility = Button.VISIBLE
-        }
-        else {
+        } else {
             binding.buttonPrev.visibility = Button.INVISIBLE
         }
 
         // Next and Finish button visibility
-        if (viewModel.progress==viewModel.totalProgress){
+        if (viewModel.progress == viewModel.totalProgress) {
             binding.buttonFin.animate()
-            binding.buttonFin.visibility=Button.VISIBLE
-            binding.buttonNext.visibility=Button.INVISIBLE
-        }
-        else{
-            binding.buttonFin.visibility=Button.INVISIBLE
-            binding.buttonNext.visibility=Button.VISIBLE
+            binding.buttonFin.visibility = Button.VISIBLE
+            binding.buttonNext.visibility = Button.INVISIBLE
+        } else {
+            binding.buttonFin.visibility = Button.INVISIBLE
+            binding.buttonNext.visibility = Button.VISIBLE
         }
 
-        val transaction:FragmentTransaction=supportFragmentManager.beginTransaction()
-        when(viewModel.progress){
-            0->transaction.replace(R.id.settingFragment,InitLightFragment())
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        when (viewModel.progress) {
+            0 -> transaction.replace(R.id.settingFragment, InitLightFragment())
         }
         transaction.commit()
     }
