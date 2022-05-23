@@ -1,4 +1,4 @@
-package com.tkbaze.theultradeluxealarm.alarm
+package com.tkbaze.theultradeluxealarm.database.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -7,10 +7,22 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.tkbaze.theultradeluxealarm.alarm.receiver.AlarmReceiver
 import java.util.*
 
-class Alarm(var id: Int, var hour: Int, var minute: Int, var recurring: Boolean = false) {
+@Entity(tableName = "alarms")
+data class Alarm(
+    @PrimaryKey(autoGenerate = true) val id: Int=0,
+    @NonNull @ColumnInfo(name = "alarm_hour") private val hour: Int,
+    @NonNull @ColumnInfo(name = "alarm_minute") private val minute: Int,
+    @NonNull @ColumnInfo(name = "alarm_recurring") private val recurring: Boolean = false,
+    @NonNull @ColumnInfo(name = "alarm_set") private val set: Boolean = false
+) {
+
     fun create(context: Context) {
         val alarmManager: AlarmManager =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

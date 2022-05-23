@@ -9,7 +9,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import com.tkbaze.theultradeluxealarm.R
-import com.tkbaze.theultradeluxealarm.alarm.Alarm
+import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import com.tkbaze.theultradeluxealarm.databinding.FragmentAlarmCreateBinding
 
 
