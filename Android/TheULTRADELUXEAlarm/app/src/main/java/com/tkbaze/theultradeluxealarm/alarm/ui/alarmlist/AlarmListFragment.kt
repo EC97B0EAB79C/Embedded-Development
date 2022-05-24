@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModel
@@ -44,6 +45,9 @@ class AlarmListFragment : Fragment() {
         }
 
         binding.recyclerView.layoutManager=LinearLayoutManager(this.context)
+
+        // TODO item decoration
+
         binding.floatingActionButton.setOnClickListener {
             val fragmentTransaction  = requireActivity().supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.container,AlarmCreateFragment())

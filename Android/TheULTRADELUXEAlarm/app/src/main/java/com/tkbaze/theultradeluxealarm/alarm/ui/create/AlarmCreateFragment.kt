@@ -14,6 +14,7 @@ import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.AlarmApplication
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModel
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModelFactory
+import com.tkbaze.theultradeluxealarm.alarm.ui.alarmlist.AlarmListFragment
 import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import com.tkbaze.theultradeluxealarm.databinding.FragmentAlarmCreateBinding
 
@@ -54,7 +55,9 @@ class AlarmCreateFragment : Fragment() {
             val alarm: Alarm = Alarm(tempId, picker.hour, picker.minute)
             viewModel.addNewAlarm(picker.hour,picker.minute)
 
-
+            val fragmentTransaction  = requireActivity().supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.container,AlarmListFragment())
+            fragmentTransaction.commit()
             // TODO alarm.create(requireContext())
         }
 

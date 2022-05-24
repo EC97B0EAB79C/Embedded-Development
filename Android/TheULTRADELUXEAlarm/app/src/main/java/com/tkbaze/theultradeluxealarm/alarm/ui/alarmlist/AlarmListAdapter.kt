@@ -18,7 +18,7 @@ class AlarmListAdapter(/*private val onItemClicked: (Alarm) -> Unit*/) :
         parent: ViewGroup,
         viewType: Int
     ): AlarmViewHolder {
-        return AlarmViewHolder(AlarmListItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return AlarmViewHolder(AlarmListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
