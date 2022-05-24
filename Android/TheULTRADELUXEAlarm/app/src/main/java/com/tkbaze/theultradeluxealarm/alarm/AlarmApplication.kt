@@ -1,4 +1,4 @@
-package com.tkbaze.theultradeluxealarm.init
+package com.tkbaze.theultradeluxealarm.alarm
 
 import android.app.Application
 import com.tkbaze.theultradeluxealarm.database.AlarmRoomDatabase

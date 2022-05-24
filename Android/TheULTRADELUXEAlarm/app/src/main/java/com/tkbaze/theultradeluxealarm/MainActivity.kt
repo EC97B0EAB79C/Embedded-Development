@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
 import com.tkbaze.theultradeluxealarm.databinding.ActivityMainBinding
 import com.tkbaze.theultradeluxealarm.init.InitActivity
 
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if(initialized){
-
+            val intent: Intent = Intent(this, AlarmActivity::class.java)
+            startActivity(intent)
+            finish()
         }
         else{
             val intent: Intent = Intent(this, InitActivity::class.java)

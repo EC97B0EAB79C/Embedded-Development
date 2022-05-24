@@ -21,7 +21,7 @@ interface AlarmDao {
     suspend fun exist(id: Int):Int
 
     @Query("SELECT * FROM alarms ORDER BY alarm_hour, alarm_minute")
-    suspend fun getAll(): Flow<List<Alarm>>
+    fun getAll(): Flow<List<Alarm>>
 
     @Query("UPDATE alarms SET alarm_set=:set WHERE id = :id")
     suspend fun updateSet(id: Int, set: Boolean)
