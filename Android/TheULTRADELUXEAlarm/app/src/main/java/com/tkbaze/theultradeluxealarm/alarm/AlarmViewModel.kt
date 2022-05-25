@@ -23,6 +23,34 @@ class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
         }
     }
 
+    fun changeAlarmSet(alarm:Alarm, set: Boolean){
+        val newAlarm=alarm.copy(set = set)
+        updateAlarm(newAlarm)
+    }
+
+    fun changeAlarmRecurring(alarm:Alarm, recurring: Boolean){
+        val newAlarm=alarm.copy(recurring = recurring)
+        updateAlarm(newAlarm)
+    }
+
+    fun changeAlarmTime(alarm: Alarm,hour: Int,minute: Int){
+        val newAlarm=alarm.copy(hour = hour, minute = minute)
+        updateAlarm(newAlarm)
+    }
+
+    private fun updateAlarm(alarm: Alarm){
+        Log.d("AlarmViewModel","updateAlarm")
+        viewModelScope.launch {
+            alarmDao.update(alarm)
+        }
+    }
+
+    fun deleteAlarm(alarm: Alarm){
+        viewModelScope.launch {
+            alarmDao.delete(alarm)
+        }
+    }
+
 }
 
 class AlarmViewModelFactory(private val alarmDao: AlarmDao) : ViewModelProvider.Factory {

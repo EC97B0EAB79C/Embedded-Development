@@ -13,7 +13,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:text="08:00"
         android:textSize="64sp"
-        android:textColor="@color/black"
+        android:textColor="@color/material_dynamic_neutral50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

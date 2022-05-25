@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/customshape" >
+    android:background="@drawable/customshape"
+    android:paddingHorizontal="20dp">
 
-    <TextView
+    <Button
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textSize="72sp"
+        android:textSize="60sp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/material_dynamic_neutral50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="08:00" />
@@ -38,16 +40,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchRecurring" />
 
-    <ImageButton
+    <Button
         android:id="@+id/imageDelete"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@null"
+        android:drawableTop="@drawable/ic_baseline_delete_24"
         android:contentDescription="@string/delete"
         android:minHeight="48dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintBottom_toBottomOf="@+id/textTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textTime"
-        app:srcCompat="@drawable/ic_baseline_delete_24" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

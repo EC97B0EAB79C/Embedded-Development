@@ -35,7 +35,8 @@ class AlarmListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter=AlarmListAdapter()
+        val adapter=AlarmListAdapter(viewModel)
+        adapter.setHasStableIds(true)
         binding.recyclerView.adapter=adapter
 
         viewModel.allAlarm.observe(this.viewLifecycleOwner){alarm->
