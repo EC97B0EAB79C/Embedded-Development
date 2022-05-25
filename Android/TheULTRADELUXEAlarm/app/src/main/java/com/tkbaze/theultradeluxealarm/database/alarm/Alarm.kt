@@ -2,6 +2,7 @@ package com.tkbaze.theultradeluxealarm.database.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -16,7 +17,7 @@ import java.util.*
 
 @Entity(tableName = "alarms")
 data class Alarm(
-    @PrimaryKey(autoGenerate = true) val id: Int=0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @NonNull @ColumnInfo(name = "alarm_hour") val hour: Int,
     @NonNull @ColumnInfo(name = "alarm_minute") val minute: Int,
     @NonNull @ColumnInfo(name = "alarm_recurring") val recurring: Boolean = false,
@@ -27,7 +28,8 @@ data class Alarm(
         val alarmManager: AlarmManager =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent: Intent = Intent(context, AlarmReceiver::class.java)
-        intent.putExtra("RECURRING", recurring)
+        Log.d("Alarm", "ID: $id")
+        intent.putExtra("ID", id.toLong())
 
         val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
             context,
@@ -47,14 +49,15 @@ data class Alarm(
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
-        Log.d("Create",""+calendar.timeInMillis+" "+System.currentTimeMillis())
+        Log.d("Create", "" + calendar.timeInMillis + " " + System.currentTimeMillis())
 
         if (calendar.timeInMillis <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
         }
 
         if (recurring) {
-            Toast.makeText(context,"Recurring Alarm set at $hour:$minute",Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Recurring Alarm set at $hour:$minute", Toast.LENGTH_LONG)
+                .show()
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
@@ -62,13 +65,33 @@ data class Alarm(
                 pendingIntent
             )
         } else {
-            Toast.makeText(context,"Alarm set at $hour:$minute",Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Alarm set at $hour:$minute", Toast.LENGTH_LONG).show()
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
                 pendingIntent
             )
         }
-        Log.d("Create","is this working $hour $minute")
+        Log.d("Alarm", "Created $hour $minute")
+    }
+
+    fun cancel(context: Context) {
+        val alarmManager: AlarmManager =
+            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent: Intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra("ID", id.toLong())
+
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
+            context,
+            id,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
+        )
+        alarmManager.cancel(pendingIntent)
+        Log.d("Alarm", "Canceled $hour $minute")
     }
 }

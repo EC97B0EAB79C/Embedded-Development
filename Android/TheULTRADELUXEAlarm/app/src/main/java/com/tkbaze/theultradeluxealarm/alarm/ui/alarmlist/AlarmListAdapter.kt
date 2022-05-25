@@ -79,11 +79,11 @@ class AlarmListAdapter(private val viewModel: AlarmViewModel) :
 
                 imageDelete.setOnClickListener {
                     MaterialAlertDialogBuilder(binding.root.context)
-                        .setTitle("Delete")
-                        .setMessage("Are you sure you want to delete?")
+                        .setTitle(R.string.delete)
+                        .setMessage(R.string.delete_question)
                         .setCancelable(false)
-                        .setNegativeButton("no") { _, _ -> }
-                        .setPositiveButton("yes") { _, _ ->
+                        .setNegativeButton(R.string.no) { _, _ -> }
+                        .setPositiveButton(R.string.yes) { _, _ ->
                             viewModel.deleteAlarm(alarm)
                         }
                         .show()
@@ -106,7 +106,7 @@ class AlarmListAdapter(private val viewModel: AlarmViewModel) :
                     }
                     picker.show(
                         (binding.root.context as AppCompatActivity).supportFragmentManager,
-                        "tag"
+                        null
                     )
                 }
             }

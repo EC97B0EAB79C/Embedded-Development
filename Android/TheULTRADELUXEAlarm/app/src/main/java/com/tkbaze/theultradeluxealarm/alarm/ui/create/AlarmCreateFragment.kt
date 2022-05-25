@@ -22,7 +22,10 @@ import com.tkbaze.theultradeluxealarm.databinding.FragmentAlarmCreateBinding
 class AlarmCreateFragment : Fragment() {
 
     private val viewModel: AlarmViewModel by activityViewModels {
-        AlarmViewModelFactory((activity?.application as AlarmApplication).database.alarmDao())
+        AlarmViewModelFactory(
+            activity?.application!!,
+            (activity?.application as AlarmApplication).database.alarmDao()
+        )
     }
 
     private var _binding: FragmentAlarmCreateBinding? = null
@@ -51,14 +54,18 @@ class AlarmCreateFragment : Fragment() {
         }
 
         binding.buttonSetAlarm.setOnClickListener {
-            Log.d("AlarmViewModel","add button")
-            val alarm: Alarm = Alarm(tempId, picker.hour, picker.minute)
-            viewModel.addNewAlarm(picker.hour,picker.minute)
+            Log.d("AlarmViewModel", "add button")
 
-            val fragmentTransaction  = requireActivity().supportFragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.container,AlarmListFragment())
+            viewModel.addNewAlarm(
+                picker.hour,
+                picker.minute,
+                binding.switchRecurring.isChecked,
+                binding.switchScheduled.isChecked
+            )
+
+            val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.container, AlarmListFragment())
             fragmentTransaction.commit()
-            // TODO alarm.create(requireContext())
         }
 
         binding.textTemp.setOnClickListener {

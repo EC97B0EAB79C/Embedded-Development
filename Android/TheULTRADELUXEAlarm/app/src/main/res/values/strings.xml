@@ -4,6 +4,8 @@
     <string name="next">next</string>
     <string name="prev">prev</string>
     <string name="finish">finish</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
     <!-- String for Alarm -->
     <string name="sel_time">Set Alarm Time</string>
@@ -13,8 +15,8 @@
     <string name="scheduledX">Alarm Not Scheduled</string>
     <string name="recurring">Alarm Recurring</string>
     <string name="recurringX">Alarm Not Recurring</string>
-    <string name="delete">Delete Alarm</string>
-
+    <string name="delete">Delete</string>
+    <string name="delete_question">Are you sure you want to delete?</string>
 
     <!-- String for Initialization -->
     <string name="measure_start">Start Measuring</string>

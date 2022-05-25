@@ -31,6 +31,8 @@ class AlarmService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("Service", "Service Started")
         val notificationIntent = Intent(this, AlarmRingActivity::class.java)
+        Log.d("Service", "ID: "+ intent!!.getLongExtra("ID",0))
+        notificationIntent.putExtra("ID", intent.getLongExtra("ID",0))
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             this,

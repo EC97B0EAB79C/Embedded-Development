@@ -16,42 +16,45 @@ import com.tkbaze.theultradeluxealarm.alarm.AlarmApplication
 import com.tkbaze.theultradeluxealarm.alarm.ui.create.AlarmCreateFragment
 
 class AlarmListFragment : Fragment() {
-    private val viewModel:AlarmViewModel by activityViewModels {
-        AlarmViewModelFactory((activity?.application as AlarmApplication).database.alarmDao())
+    private val viewModel: AlarmViewModel by activityViewModels {
+        AlarmViewModelFactory(
+            activity?.application!!,
+            (activity?.application as AlarmApplication).database.alarmDao()
+        )
     }
 
-    private var _binding:AlarmListFragmentBinding?=null
-    private val binding get()=_binding!!
+    private var _binding: AlarmListFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= AlarmListFragmentBinding.inflate(inflater,container,false)
+        _binding = AlarmListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter=AlarmListAdapter(viewModel)
+        val adapter = AlarmListAdapter(viewModel)
         adapter.setHasStableIds(true)
-        binding.recyclerView.adapter=adapter
+        binding.recyclerView.adapter = adapter
 
-        viewModel.allAlarm.observe(this.viewLifecycleOwner){alarm->
+        viewModel.allAlarm.observe(this.viewLifecycleOwner) { alarm ->
             alarm.let {
                 adapter.submitList(it)
             }
         }
 
-        binding.recyclerView.layoutManager=LinearLayoutManager(this.context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         // TODO item decoration
 
         binding.floatingActionButton.setOnClickListener {
-            val fragmentTransaction  = requireActivity().supportFragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.container,AlarmCreateFragment())
+            val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.container, AlarmCreateFragment())
             fragmentTransaction.commit()
         }
     }
