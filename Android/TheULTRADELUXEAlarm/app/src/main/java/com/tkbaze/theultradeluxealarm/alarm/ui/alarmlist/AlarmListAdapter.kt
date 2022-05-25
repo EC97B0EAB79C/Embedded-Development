@@ -79,8 +79,8 @@ class AlarmListAdapter(private val viewModel: AlarmViewModel) :
 
                 imageDelete.setOnClickListener {
                     MaterialAlertDialogBuilder(binding.root.context)
-                        .setTitle("Temp")
-                        .setMessage("Temp Message")
+                        .setTitle("Delete")
+                        .setMessage("Are you sure you want to delete?")
                         .setCancelable(false)
                         .setNegativeButton("no") { _, _ -> }
                         .setPositiveButton("yes") { _, _ ->
@@ -91,8 +91,9 @@ class AlarmListAdapter(private val viewModel: AlarmViewModel) :
 
                 textTime.setOnClickListener {
                     val picker =
-                        MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(8)
-                            .setMinute(0)
+                        MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                            .setHour(alarm.hour)
+                            .setMinute(alarm.minute)
                             .setTitleText(R.string.sel_time)
                             .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD).build()
 

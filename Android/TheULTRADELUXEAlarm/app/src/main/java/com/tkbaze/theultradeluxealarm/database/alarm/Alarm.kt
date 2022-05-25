@@ -17,10 +17,10 @@ import java.util.*
 @Entity(tableName = "alarms")
 data class Alarm(
     @PrimaryKey(autoGenerate = true) val id: Int=0,
-    @NonNull @ColumnInfo(name = "alarm_hour") var hour: Int,
+    @NonNull @ColumnInfo(name = "alarm_hour") val hour: Int,
     @NonNull @ColumnInfo(name = "alarm_minute") val minute: Int,
-    @NonNull @ColumnInfo(name = "alarm_recurring") var recurring: Boolean = false,
-    @NonNull @ColumnInfo(name = "alarm_set") var set: Boolean = false
+    @NonNull @ColumnInfo(name = "alarm_recurring") val recurring: Boolean = false,
+    @NonNull @ColumnInfo(name = "alarm_set") val set: Boolean = false
 ) {
 
     fun create(context: Context) {
