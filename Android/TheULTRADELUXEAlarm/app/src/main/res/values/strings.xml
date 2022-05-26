@@ -6,6 +6,8 @@
     <string name="finish">finish</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="action_settings">Reset Setting</string>
+    <string name="action_settings_question">Are you sure you want reset settings?</string>
 
     <!-- String for Alarm -->
     <string name="sel_time">Set Alarm Time</string>

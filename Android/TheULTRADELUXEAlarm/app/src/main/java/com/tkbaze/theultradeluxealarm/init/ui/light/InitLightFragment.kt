@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tkbaze.theultradeluxealarm.R
+import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.FragmentInitLightBinding
 import com.tkbaze.theultradeluxealarm.init.InitViewModel
 
@@ -25,6 +26,8 @@ class InitLightFragment : Fragment(), SensorEventListener {
     private var light: Sensor? = null
 
     private lateinit var viewModel: ViewModel
+
+    private lateinit var SettingsDataStore:SettingsDataStore
 
     private var measuring = false
 
@@ -54,6 +57,12 @@ class InitLightFragment : Fragment(), SensorEventListener {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        SettingsDataStore = SettingsDataStore(requireContext())
+
     }
 
     override fun onResume() {

@@ -1,5 +1,6 @@
 package com.tkbaze.theultradeluxealarm.init
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,8 +9,13 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
 import com.tkbaze.theultradeluxealarm.R
+import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
+import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityInitBinding
+import com.tkbaze.theultradeluxealarm.databinding.AlarmActivityBinding
 import com.tkbaze.theultradeluxealarm.init.ui.light.InitLightFragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /*
 runs initial settings for the app
@@ -22,10 +28,14 @@ class InitActivity : AppCompatActivity() {
 
     private val viewModel: InitViewModel by viewModels()
 
+    private lateinit var SettingsDataStore: SettingsDataStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding.root)
         super.onCreate(savedInstanceState)
+
+        SettingsDataStore= SettingsDataStore(applicationContext)
 
         binding.buttonNext.setOnClickListener {
             viewModel.nextProgress()
@@ -38,6 +48,11 @@ class InitActivity : AppCompatActivity() {
         }
 
         binding.buttonFin.setOnClickListener {
+            GlobalScope.launch {
+                SettingsDataStore.saveInitializedToPreferencesStore(true,applicationContext)
+            }
+            val intent: Intent = Intent(this, AlarmActivity::class.java)
+            startActivity(intent)
             finish()
         }
 

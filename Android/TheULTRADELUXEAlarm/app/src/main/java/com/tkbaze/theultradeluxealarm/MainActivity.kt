@@ -8,9 +8,14 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.asLiveData
 import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
+import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityMainBinding
 import com.tkbaze.theultradeluxealarm.init.InitActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     companion object{
@@ -24,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             ).toTypedArray()
     }
 
+    private lateinit var SettingsDataStore: SettingsDataStore
+
     private lateinit var binding: ActivityMainBinding
 
     // Placeholder variables
@@ -34,6 +41,22 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        SettingsDataStore= SettingsDataStore(applicationContext)
+
+        SettingsDataStore.initializedFlow.asLiveData().observe(this){
+            initialized=it
+            if(initialized){
+                val intent: Intent = Intent(this, AlarmActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else{
+                val intent: Intent = Intent(this, InitActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        /*
         if(initialized){
             val intent: Intent = Intent(this, AlarmActivity::class.java)
             startActivity(intent)
@@ -43,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             val intent: Intent = Intent(this, InitActivity::class.java)
             startActivity(intent)
         }
+         */
     }
 
     // Check if all permission is granted
