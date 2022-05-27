@@ -2,10 +2,7 @@ package com.tkbaze.theultradeluxealarm.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -39,17 +36,36 @@ class SettingsDataStore(context: Context) {
         }
     }
 
-    val lightFlow:Flow<Boolean> =context.dataStore.data.catch{
-        if(it is IOException){
+    val lightFlow: Flow<Boolean> = context.dataStore.data.catch {
+        if (it is IOException) {
             it.printStackTrace()
             emit(emptyPreferences())
-        }
-        else{
+        } else {
             throw it
         }
     }.map { preferences ->
-        preferences[IS_LIGHT_SENSOR_ENABLED]?:true
+        preferences[IS_LIGHT_SENSOR_ENABLED] ?: true
     }
+
+    //Light Value
+    private val VALUE_LIGHT_LIMIT = intPreferencesKey("value_light_limit")
+    suspend fun saveValueLightLimitToValueLightLimitStore(value: Int, context: Context) {
+        context.dataStore.edit { preference ->
+            preference[VALUE_LIGHT_LIMIT] = value
+        }
+    }
+
+    val lightValueFlow: Flow<Int> = context.dataStore.data.catch {
+        if (it is IOException) {
+            it.printStackTrace()
+            emit(emptyPreferences())
+        } else {
+            throw it
+        }
+    }.map { preferences ->
+        preferences[VALUE_LIGHT_LIMIT] ?: 250
+    }
+
 }
 
 private const val SENSOR_PREFERENCE_NAME = "sensor_preference"

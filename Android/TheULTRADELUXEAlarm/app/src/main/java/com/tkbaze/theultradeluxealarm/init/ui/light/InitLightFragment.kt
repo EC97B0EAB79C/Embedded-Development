@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,18 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.FragmentInitLightBinding
 import com.tkbaze.theultradeluxealarm.init.InitViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class InitLightFragment : Fragment(), SensorEventListener {
+    companion object{
+        val TAG="InitLight"
+    }
     private var _binding: FragmentInitLightBinding? = null
     private val binding get() = _binding!!
 
@@ -27,9 +34,12 @@ class InitLightFragment : Fragment(), SensorEventListener {
 
     private lateinit var viewModel: ViewModel
 
-    private lateinit var SettingsDataStore:SettingsDataStore
+    private lateinit var SettingsDataStore: SettingsDataStore
 
     private var measuring = false
+
+    private var brightness = 250
+    private var currentBrightness = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,42 +53,57 @@ class InitLightFragment : Fragment(), SensorEventListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentInitLightBinding.inflate(layoutInflater)
-
-        binding.buttonLightMeasure.setOnClickListener {
-            if (!measuring) {
-                sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
-                binding.buttonLightMeasure.text = getString(R.string.measure_stop)
-                measuring = true
-            } else {
-                sensorManager.unregisterListener(this)
-                binding.buttonLightMeasure.text = getString(R.string.measure_start)
-                measuring = false
-            }
-        }
-
+        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         SettingsDataStore = SettingsDataStore(requireContext())
+        SettingsDataStore.lightValueFlow.asLiveData().observe(viewLifecycleOwner) {
+            brightness = it
+            binding.slider.value = brightness.toFloat()
+            Log.d(TAG,"Saved: $brightness")
+        }
 
+        binding.slider.addOnChangeListener { slider, value, fromUser ->
+            brightness = value.toInt()
+            GlobalScope.launch {
+                SettingsDataStore.saveValueLightLimitToValueLightLimitStore(
+                    brightness,
+                    requireContext()
+                )
+            }
+            setLightStatus()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-
+        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
-        binding.buttonLightMeasure.text = getString(R.string.measure_start)
         measuring = false
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
-        binding.textSettingLight.text = p0!!.values[0].toString()
+        binding.textLuminance.text = p0!!.values[0].toInt().toString()
+        currentBrightness=p0.values[0].toInt()
+        setLightStatus()
+    }
+
+    private fun setLightStatus() {
+        if (currentBrightness > brightness){
+            binding.imageLightStatus.setImageResource(R.drawable.ic_baseline_brightness_7_24)
+            binding.textLightStatus.text = getText(R.string.light_on)
+        }
+        else{
+            binding.imageLightStatus.setImageResource(R.drawable.ic_baseline_brightness_3_24)
+            binding.textLightStatus.text = getText(R.string.light_off)
+        }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
