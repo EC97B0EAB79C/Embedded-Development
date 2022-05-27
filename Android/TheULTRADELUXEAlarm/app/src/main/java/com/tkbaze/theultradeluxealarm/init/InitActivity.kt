@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -14,6 +15,8 @@ import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityInitBinding
 import com.tkbaze.theultradeluxealarm.databinding.AlarmActivityBinding
 import com.tkbaze.theultradeluxealarm.init.ui.light.InitLightFragment
+import com.tkbaze.theultradeluxealarm.init.ui.location.InitLocationFragment
+import com.tkbaze.theultradeluxealarm.init.ui.motion.InitMotionFragment
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -35,7 +38,7 @@ class InitActivity : AppCompatActivity() {
         setContentView(binding.root)
         super.onCreate(savedInstanceState)
 
-        SettingsDataStore= SettingsDataStore(applicationContext)
+        SettingsDataStore = SettingsDataStore(applicationContext)
 
         binding.buttonNext.setOnClickListener {
             viewModel.nextProgress()
@@ -49,7 +52,7 @@ class InitActivity : AppCompatActivity() {
 
         binding.buttonFin.setOnClickListener {
             GlobalScope.launch {
-                SettingsDataStore.saveInitializedToPreferencesStore(true,applicationContext)
+                SettingsDataStore.saveInitializedToPreferencesStore(true, applicationContext)
             }
             val intent: Intent = Intent(this, AlarmActivity::class.java)
             startActivity(intent)
@@ -59,11 +62,26 @@ class InitActivity : AppCompatActivity() {
         updateUI()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if (viewModel.progress!=0){
+                supportFragmentManager.popBackStack()
+                viewModel.prevProgress()
+                updateUI()
+                return true
+            }
+            else{
+                finish()
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
     /*
-    UI for InitActivity
-    1. set progress bar accordingly
-    2. hide and show navigation buttons according to current process
-     */
+        UI for InitActivity
+        1. set progress bar accordingly
+        2. hide and show navigation buttons according to current process
+         */
     private fun updateUI() {
         // Progress bar
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -96,7 +114,16 @@ class InitActivity : AppCompatActivity() {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         when (viewModel.progress) {
             0 -> transaction.replace(R.id.settingFragment, InitLightFragment())
+            1 -> {
+                transaction.replace(R.id.settingFragment, InitMotionFragment())
+                transaction.addToBackStack( "BackStackInit" )
+            }
+            2 -> {
+                transaction.replace(R.id.settingFragment, InitLocationFragment())
+                transaction.addToBackStack( "BackStackInit" )
+            }
         }
+
         transaction.commit()
     }
 }

@@ -13,33 +13,36 @@ class InitViewModel : ViewModel() {
     private var _totalProgress: Int = 2
     val totalProgress: Int get() = _totalProgress
 
-    fun nextProgress(){
+    fun nextProgress() {
         _progress++
     }
-    fun prevProgress(){
-        _progress--
+
+    fun prevProgress() {
+        if (progress > 0)
+            _progress--
     }
 
     // Light Measurement
-    private var _lightProgress:Int=0
+    private var _lightProgress: Int = 0
     val lightProgress get() = _lightProgress
-    private var _lightTotalProgress:Int=2
+    private var _lightTotalProgress: Int = 2
     val lightTotalProgress get() = _lightTotalProgress
-    private var _lightOn:Int=0
-    private var _lightOff:Int=0
+    private var _lightOn: Int = 0
+    private var _lightOff: Int = 0
 
-    fun nextLightProgress(){
+    fun nextLightProgress() {
         _progress++
     }
-    fun prevLightProgress(){
+
+    fun prevLightProgress() {
         _progress--
     }
 
-    fun setLightOn(p0:Int){
-        _lightOn=p0
+    fun setLightOn(p0: Int) {
+        _lightOn = p0
     }
 
-    fun setLightOff(p0:Int){
-        _lightOff=p0
+    fun setLightOff(p0: Int) {
+        _lightOff = p0
     }
 }

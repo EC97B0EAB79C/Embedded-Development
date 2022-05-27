@@ -30,4 +30,6 @@
     <string name="light_explain">Move slider to adjust TODO</string>
     <string name="light_on">Light ON</string>
     <string name="light_off">Light OFF</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

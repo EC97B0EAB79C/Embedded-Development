@@ -66,7 +66,7 @@ class AlarmListFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.container, AlarmCreateFragment())
-            fragmentTransaction.addToBackStack( "BackStack" )
+            fragmentTransaction.addToBackStack( "BackStackAlarm" )
             fragmentTransaction.commit()
         }
     }
