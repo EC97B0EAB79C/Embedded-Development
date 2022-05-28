@@ -94,12 +94,8 @@ class InitActivity : AppCompatActivity() {
                 ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt()
         }
 
-        // Previous button visibility
-        if (viewModel.progress > 0) {
-            binding.buttonPrev.visibility = Button.VISIBLE
-        } else {
-            binding.buttonPrev.visibility = Button.INVISIBLE
-        }
+        // Previous button enable
+        binding.buttonPrev.isEnabled = viewModel.progress > 0
 
         // Next and Finish button visibility
         if (viewModel.progress == viewModel.totalProgress) {

@@ -30,6 +30,21 @@
     <string name="light_explain">Move slider to adjust TODO</string>
     <string name="light_on">Light ON</string>
     <string name="light_off">Light OFF</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Motion -->
+    <string name="motion_sensor_title">Motion Sensor</string>
+    <string name="motion_sensor_explain">Move your body with your phone to calibrate motion sensor</string>
+    <string name="motion_waiting">Waiting for Movement</string>
+    <string name="motion_detected">Motion Detected</string>
+    <string name="motion_complete">Calibration Complete</string>
+    <string name="motion_enabled">Using Motion Sensor</string>
+    <string name="motion_disabled">Not Using Motion Sensor</string>
+    <string name="motion_no_title">No Sensor</string>
+    <string name="motion_no_text">There were no Motion Sensor detected on your device.</string>
+    <!-- Location -->
+    <string name="location_sensor_title">Location Sensor</string>
+    <string name="location_sensor_explain">Using GPS/Network to find your location</string>
+    <string name="location_waiting">Scanning your Location</string>
+    <string name="location_detected">Location Detected</string>
+    <string name="location_enabled">Using Location</string>
+    <string name="location_disabled">Not Using Location</string>
 </resources>

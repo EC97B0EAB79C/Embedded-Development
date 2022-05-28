@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -71,7 +69,7 @@ class InitLightFragment : Fragment(), SensorEventListener {
         binding.slider.addOnChangeListener { slider, value, fromUser ->
             brightness = value.toInt()
             GlobalScope.launch {
-                SettingsDataStore.saveValueLightLimitToValueLightLimitStore(
+                SettingsDataStore.saveValueLightLimitToPreferencesStore(
                     brightness,
                     requireContext()
                 )
@@ -97,8 +95,15 @@ class InitLightFragment : Fragment(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
+        Log.d("InitLight","Pause")
         sensorManager.unregisterListener(this)
         measuring = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("InitLight","Destroy")
+        _binding = null
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
@@ -108,6 +113,7 @@ class InitLightFragment : Fragment(), SensorEventListener {
     }
 
     private fun setLightStatus() {
+        Log.d("InitLight","Light")
         if (currentBrightness > brightness){
             binding.imageLightStatus.setImageResource(R.drawable.ic_baseline_brightness_7_24)
             binding.textLightStatus.text = getText(R.string.light_on)

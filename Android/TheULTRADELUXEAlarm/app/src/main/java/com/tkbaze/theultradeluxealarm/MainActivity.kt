@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
 import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
+import com.tkbaze.theultradeluxealarm.alarm.ring.AlarmRingActivity
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityMainBinding
 import com.tkbaze.theultradeluxealarm.init.InitActivity
@@ -40,6 +41,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+/*
+        val intent: Intent = Intent(this, AlarmRingActivity::class.java)
+        startActivity(intent)
+        finish()
+        return
+
+ */
 
         SettingsDataStore= SettingsDataStore(applicationContext)
 

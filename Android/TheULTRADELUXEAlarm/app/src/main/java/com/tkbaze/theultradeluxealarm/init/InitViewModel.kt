@@ -22,27 +22,11 @@ class InitViewModel : ViewModel() {
             _progress--
     }
 
-    // Light Measurement
-    private var _lightProgress: Int = 0
-    val lightProgress get() = _lightProgress
-    private var _lightTotalProgress: Int = 2
-    val lightTotalProgress get() = _lightTotalProgress
-    private var _lightOn: Int = 0
-    private var _lightOff: Int = 0
+    //motion
+    private var _deltaPerTen = 0F
+    val deltaPerTen: Float get() = _deltaPerTen
 
-    fun nextLightProgress() {
-        _progress++
-    }
-
-    fun prevLightProgress() {
-        _progress--
-    }
-
-    fun setLightOn(p0: Int) {
-        _lightOn = p0
-    }
-
-    fun setLightOff(p0: Int) {
-        _lightOff = p0
+    fun addMotionDelta(delta:Float){
+        _deltaPerTen+=delta
     }
 }

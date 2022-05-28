@@ -19,7 +19,7 @@ class AlarmReceiver : BroadcastReceiver() {
         Log.d("AlarmReceiver", "Broadcast received")
         //Toast.makeText(p0, "Alarm Received", Toast.LENGTH_SHORT).show()
         if (Intent.ACTION_BOOT_COMPLETED == p1!!.action) {
-            Log.d("Receive", "reset")
+            Log.d("AlarmReceive", "reset")
 
             val intent = Intent(p0!!, AlarmResetService::class.java)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -28,8 +28,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 p0.startService(intent)
             }
         } else {
-            Log.d("Receive", "Service start")
-            Log.d("Receive", "ID: " + p1.getLongExtra("ID", 0))
+            Log.d("AlarmReceive", "Received")
+            Log.d("AlarmReceive", "ID: " + p1.getLongExtra("ID", 0))
 
             val intent = Intent(p0!!, AlarmService::class.java)
             intent.putExtra("ID", p1.getLongExtra("ID", 0))
@@ -38,8 +38,6 @@ class AlarmReceiver : BroadcastReceiver() {
             } else {
                 p0.startService(intent)
             }
-
-
         }
     }
 }
