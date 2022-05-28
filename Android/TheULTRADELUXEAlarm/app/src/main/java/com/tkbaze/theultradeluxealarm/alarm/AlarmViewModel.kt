@@ -1,6 +1,7 @@
 package com.tkbaze.theultradeluxealarm.alarm
 
 import android.app.Application
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.*
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
@@ -103,19 +104,21 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
         return light
     }
 
-    private var prev: FloatArray? = null
+
     fun addMotionDelta(p0: FloatArray) {
-        if (prev == null) {
-            prev = p0.copyOf()
-            return
-        }
         motion += p0[0] * p0[0] + p0[1] * p0[1] + p0[2] * p0[2]
         Log.d(TAG, motion.toString())
-        prev = p0.copyOf()
     }
 
-    fun addLocationDelta(delta: Float) {
-        location += delta
+    private var prevLoc: Location? = null
+    fun addLocationDelta(p0: Location) {
+        if (prevLoc == null) {
+            prevLoc=Location("")
+            prevLoc!!.set(p0)
+            return
+        }
+        location += prevLoc!!.distanceTo(p0)
+        prevLoc!!.set(p0)
     }
 
     fun checkLight(luminance: Float) {

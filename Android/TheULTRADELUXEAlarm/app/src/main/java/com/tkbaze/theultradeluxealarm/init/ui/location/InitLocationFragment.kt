@@ -162,9 +162,4 @@ class InitLocationFragment : Fragment(), LocationListener {
         }
         return true
     }
-
-    private fun allPermissionsGranted() = MainActivity.REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
-    }
-
 }

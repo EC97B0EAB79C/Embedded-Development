@@ -1,7 +1,9 @@
 package com.tkbaze.theultradeluxealarm.alarm.ring
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -68,6 +72,10 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
 
         //Location Manager
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        if (checkLocationPermission()) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0F, this)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0F, this)
+        }
 
         // View Model
         viewModel = ViewModelProvider(
@@ -194,6 +202,10 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
                     binding.circularProgressLocation.progress = progress
                 }
             }
+            if (viewModel.isLocationFinished()) {
+                if (checkLocationPermission())
+                    locationManager.removeUpdates(this)
+            }
         }
 
         Log.d(
@@ -211,6 +223,10 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
             (!enabledLocation or viewModel.isLocationFinished())
 
         ) {
+            sensorManager.unregisterListener(this)
+            if (checkLocationPermission())
+                locationManager.removeUpdates(this)
+
             binding.buttonDismissAlarm.isEnabled = true
         }
     }
@@ -241,6 +257,22 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     }
 
     override fun onLocationChanged(p0: Location) {
-        TODO("Not yet implemented")
+        viewModel.addLocationDelta(p0)
+        updateUI()
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return true
     }
 }

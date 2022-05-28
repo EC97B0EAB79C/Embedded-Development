@@ -77,7 +77,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/circularProgressLocation" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/buttonDismissAlarm"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="Dismiss"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circularProgressLocation" />
+    <!--LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,6 +112,6 @@
             android:layout_marginLeft="16dp"
             android:text="Snooze" />
 
-    </LinearLayout>
+    </LinearLayout-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
