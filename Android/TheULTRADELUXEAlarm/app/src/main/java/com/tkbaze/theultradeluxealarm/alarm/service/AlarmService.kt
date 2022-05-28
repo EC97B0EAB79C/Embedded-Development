@@ -16,23 +16,24 @@ import com.tkbaze.theultradeluxealarm.alarm.ring.AlarmRingActivity
 import com.tkbaze.theultradeluxealarm.init.InitActivity
 
 class AlarmService : Service() {
-
-    private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var vibrator: Vibrator
+    companion object {
+        private lateinit var mediaPlayer: MediaPlayer
+        lateinit var vibrator: Vibrator
+    }
 
     override fun onCreate() {
         super.onCreate()
 
         //TODO("Sound etc")
 
-
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("AlarmService", "Service Started")
         val notificationIntent = Intent(this, AlarmRingActivity::class.java)
         //Log.d("AlarmService", "ID: "+ intent!!.getLongExtra("ID",0))
-        notificationIntent.putExtra("ID", intent?.getLongExtra("ID",0))
+        notificationIntent.putExtra("ID", intent?.getLongExtra("ID", 0))
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             this,
@@ -54,12 +55,16 @@ class AlarmService : Service() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel: NotificationChannel =
-                NotificationChannel("CHANNEL_ID", "Alarm", NotificationManager.IMPORTANCE_HIGH)
+                NotificationChannel("CHANNEL_ID", "Alarm", NotificationManager.IMPORTANCE_MAX)
 
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
         }
+
+
+        val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
+        vibrator.vibrate(pattern, 0)
 
         startForeground(144, notification)
 
@@ -69,6 +74,7 @@ class AlarmService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        vibrator.cancel()
         Log.d("Service", "Service Destroyed")
     }
 

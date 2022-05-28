@@ -111,14 +111,20 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
     }
 
     private var prevLoc: Location? = null
-    fun addLocationDelta(p0: Location) {
+    fun addLocationDelta(p0: Location): Boolean {
         if (prevLoc == null) {
-            prevLoc=Location("")
+            prevLoc = Location("")
             prevLoc!!.set(p0)
-            return
+            return false
         }
-        location += prevLoc!!.distanceTo(p0)
+        val distance = prevLoc!!.distanceTo(p0)
+        if (distance > p0.accuracy) {
+            location += distance
+            return true
+        }
+        Log.d(TAG, "distance: " + prevLoc!!.distanceTo(p0) + ", accuracy: " + p0.accuracy)
         prevLoc!!.set(p0)
+        return false
     }
 
     fun checkLight(luminance: Float) {
@@ -127,6 +133,10 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
 
     fun progressMotion(): Float {
         return motion / motionTarget * 100
+    }
+
+    fun reduceProgressMotion() {
+        motion -= motionTarget * .1F
     }
 
     fun progressLocation(): Float {

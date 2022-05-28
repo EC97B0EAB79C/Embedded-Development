@@ -11,10 +11,8 @@ import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -56,6 +54,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     // Location Manager
     private lateinit var locationManager: LocationManager
 
+    private var changed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "Created")
@@ -77,6 +76,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0F, this)
         }
 
+
         // View Model
         viewModel = ViewModelProvider(
             this,
@@ -96,6 +96,17 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
         viewModel.dismissAlarm(intent.getLongExtra("ID", 0))
 
         Log.d("Ring", "Ring Started")
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!changed) {
+                val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
+                AlarmService.vibrator.vibrate(pattern, 0)
+            }
+            changed = false
+            Log.d(TAG, "Handler")
+            viewModel.reduceProgressMotion()
+            sensorManager.registerListener(this, motion, SensorManager.SENSOR_DELAY_NORMAL)
+        }, 1000 * 60 * 1)
     }
 
     private fun initUI() {
@@ -150,12 +161,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
         binding.buttonDismissAlarm.setOnClickListener {
             val intent = Intent(applicationContext, AlarmService::class.java)
             applicationContext.stopService(intent)
-            sensorManager.unregisterListener(this)
             finish();
-        }
-
-        binding.buttonSnoozeAlarm.setOnClickListener {
-            // TODO snooze
         }
 
     }
@@ -171,7 +177,6 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
                     binding.circularProgressLight.progress = 100
                 }
                 sensorManager.unregisterListener(this, light)
-
             }
         }
 
@@ -189,6 +194,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
             }
             if (viewModel.isMotionFinished()) {
                 sensorManager.unregisterListener(this, motion)
+                AlarmService.vibrator.cancel()
             }
         }
 
@@ -239,6 +245,12 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
         super.onPause()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+
+    }
+
     override fun onSensorChanged(p0: SensorEvent?) {
         Log.d(TAG, String.format("Sensor[%s]: %d", p0.toString(), p0!!.values[0].toInt()))
         when (p0!!.sensor.type) {
@@ -257,8 +269,9 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     }
 
     override fun onLocationChanged(p0: Location) {
-        viewModel.addLocationDelta(p0)
-        updateUI()
+        Log.d(TAG, "Location: " + p0.provider)
+        changed = changed or viewModel.addLocationDelta(p0)
+        if (changed) updateUI()
     }
 
     private fun checkLocationPermission(): Boolean {

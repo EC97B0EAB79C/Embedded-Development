@@ -56,7 +56,7 @@ data class Alarm(
         }
 
         if (recurring) {
-            Toast.makeText(context, "Recurring Alarm set at $hour:$minute", Toast.LENGTH_LONG)
+            Toast.makeText(context, String.format("Recurring Alarm set at %d:%02d",hour,minute), Toast.LENGTH_LONG)
                 .show()
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
@@ -65,7 +65,7 @@ data class Alarm(
                 pendingIntent
             )
         } else {
-            Toast.makeText(context, "Alarm set at $hour:$minute", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, String.format("Alarm set at %d:%02d",hour,minute), Toast.LENGTH_LONG).show()
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
