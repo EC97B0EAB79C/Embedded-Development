@@ -109,7 +109,7 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
             prev = p0.copyOf()
             return
         }
-        motion += delta(p0, prev!!)
+        motion += p0[0] * p0[0] + p0[1] * p0[1] + p0[2] * p0[2]
         Log.d(TAG, motion.toString())
         prev = p0.copyOf()
     }
@@ -159,12 +159,6 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
         SettingsDataStore.locationValueFlow.asLiveData().observeForever {
             locationTarget = it
         }
-    }
-
-    private fun delta(p0: FloatArray, p1: FloatArray): Float {
-        return (p0[0] - p1[0]) * (p0[0] - p1[0]) +
-                (p0[1] - p1[1]) * (p0[1] - p1[1]) +
-                (p0[2] - p1[2]) * (p0[2] - p1[2])
     }
 
 }

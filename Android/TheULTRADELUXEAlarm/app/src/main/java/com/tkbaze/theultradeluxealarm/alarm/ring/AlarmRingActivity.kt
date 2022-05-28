@@ -64,7 +64,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
         //Sensor Manager
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
-        motion = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        motion = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
 
         //Location Manager
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
@@ -206,9 +206,9 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
             )
         )
         if (
-            (viewModel.isLightFinished() or !enabledLight) and
-            (viewModel.isMotionFinished() or !enabledMotion) and
-            (viewModel.isLocationFinished() or !enabledLocation)
+            (!enabledLight or viewModel.isLightFinished()) and
+            (!enabledMotion or viewModel.isMotionFinished()) and
+            (!enabledLocation or viewModel.isLocationFinished())
 
         ) {
             binding.buttonDismissAlarm.isEnabled = true
@@ -226,7 +226,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     override fun onSensorChanged(p0: SensorEvent?) {
         Log.d(TAG, String.format("Sensor[%s]: %d", p0.toString(), p0!!.values[0].toInt()))
         when (p0!!.sensor.type) {
-            Sensor.TYPE_ACCELEROMETER -> {
+            Sensor.TYPE_LINEAR_ACCELERATION -> {
                 viewModel.addMotionDelta(p0.values)
             }
             Sensor.TYPE_LIGHT -> {

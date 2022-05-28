@@ -30,6 +30,8 @@
     <string name="light_explain">Move slider to adjust TODO</string>
     <string name="light_on">Light ON</string>
     <string name="light_off">Light OFF</string>
+    <string name="light_no_title">No Sensor</string>
+    <string name="light_no_text">There were no Light Sensor detected on your device.</string>
     <!-- Motion -->
     <string name="motion_sensor_title">Motion Sensor</string>
     <string name="motion_sensor_explain">Move your body with your phone to calibrate motion sensor</string>

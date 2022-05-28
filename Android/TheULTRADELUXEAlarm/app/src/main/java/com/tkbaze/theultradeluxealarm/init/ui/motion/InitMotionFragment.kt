@@ -41,7 +41,7 @@ class InitMotionFragment : Fragment(), SensorEventListener {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(InitViewModel::class.java)
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        motion = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        motion = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
     }
 
     override fun onCreateView(
@@ -109,21 +109,16 @@ class InitMotionFragment : Fragment(), SensorEventListener {
         _binding = null
     }
 
-    private var prev: FloatArray? = null
     private var ctr = 0
     override fun onSensorChanged(p0: SensorEvent?) {
-        if (p0!!.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            if (prev == null) {
-                Log.d(TAG, "null")
-                prev = p0.values.copyOf()
-                return
+        if (p0!!.sensor.type == Sensor.TYPE_LINEAR_ACCELERATION) {
+            val temp = with(p0) {
+                values[0] * values[0] + values[1] * values[1] + values[2] * values[2]
             }
-            Log.d(TAG, String.format("curr: %f, %f, %f", p0.values[0], p0.values[1], p0.values[2]))
-            Log.d(TAG, String.format("Prev: %f, %f, %f", prev!![0], prev!![1], prev!![2]))
-            Log.d(TAG, "Delta: " + delta(prev!!, p0.values))
-            viewModel.addMotionDelta(delta(prev!!, p0.values))
-            prev = p0.values.copyOf()
-            ctr++
+            Log.d(TAG,temp.toString())
+            viewModel.addMotionDelta(temp)
+            if (temp > 1)
+                ctr++
             updateUI()
         }
     }
@@ -139,18 +134,12 @@ class InitMotionFragment : Fragment(), SensorEventListener {
             binding.textView.text = getString(R.string.motion_complete)
             GlobalScope.launch {
                 SettingsDataStore.saveValueMotionLimitToPreferencesStore(
-                    viewModel.deltaPerTen*100,
+                    viewModel.deltaPerTen * 100,
                     requireContext()
                 )
             }
             sensorManager.unregisterListener(this)
         }
-    }
-
-    private fun delta(p0: FloatArray, p1: FloatArray): Float {
-        return (p0[0] - p1[0]) * (p0[0] - p1[0]) +
-                (p0[1] - p1[1]) * (p0[1] - p1[1]) +
-                (p0[2] - p1[2]) * (p0[2] - p1[2])
     }
 
 }
