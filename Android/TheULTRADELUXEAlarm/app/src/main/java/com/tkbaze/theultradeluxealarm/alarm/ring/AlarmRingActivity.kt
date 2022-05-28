@@ -17,6 +17,7 @@ import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.tkbaze.theultradeluxealarm.alarm.AlarmApplication
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModel
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModelFactory
@@ -28,9 +29,10 @@ import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 
 class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationListener {
-companion object{
-    val TAG="AlarmRing"
-}
+    companion object {
+        val TAG = "AlarmRing"
+    }
+
     // UI
     private lateinit var viewModel: AlarmViewModel
     private lateinit var binding: ActivityAlarmRingBinding
@@ -100,7 +102,7 @@ companion object{
             } else {
                 with(binding) {
                     textViewLight.isEnabled = false
-                    circularProgressLight.isEnabled = false
+                    circularProgressLocation.visibility = CircularProgressIndicator.INVISIBLE
                 }
             }
         }
@@ -116,7 +118,7 @@ companion object{
             } else {
                 with(binding) {
                     textViewMotion.isEnabled = false
-                    circularProgressMotion.isEnabled = false
+                    circularProgressMotion.visibility = CircularProgressIndicator.INVISIBLE
                 }
             }
         }
@@ -131,22 +133,10 @@ companion object{
             } else {
                 with(binding) {
                     textViewLocation.isEnabled = false
-                    circularProgressLocation.isEnabled = false
+                    circularProgressLocation.visibility = CircularProgressIndicator.INVISIBLE
                 }
             }
         }
-/*
-        Timer().scheduleAtFixedRate(0, 1000) {
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = System.currentTimeMillis()
-            binding.textCurrentTime.text = String.format(
-                "%02d:%02d",
-                calendar.get(Calendar.HOUR),
-                calendar.get(Calendar.MINUTE)
-            )
-        }
-
- */
 
         binding.buttonDismissAlarm.isEnabled = false
         binding.buttonDismissAlarm.setOnClickListener {
@@ -179,7 +169,7 @@ companion object{
 
         if (enabledMotion) {
             val progress = viewModel.progressMotion().toInt()
-            Log.d(TAG,progress.toString())
+            Log.d(TAG, progress.toString())
             if (progress > 0) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     binding.circularProgressMotion.setProgressCompat(progress, true)
@@ -189,7 +179,7 @@ companion object{
                 }
 
             }
-            if(viewModel.isMotionFinished()){
+            if (viewModel.isMotionFinished()) {
                 sensorManager.unregisterListener(this, motion)
             }
         }
@@ -215,15 +205,13 @@ companion object{
                 viewModel.isLocationFinished()
             )
         )
-        if (with(viewModel) {
-                isMotionFinished() and isLightFinished() and isLocationFinished()
-            }) {
+        if (
+            (viewModel.isLightFinished() or !enabledLight) and
+            (viewModel.isMotionFinished() or !enabledMotion) and
+            (viewModel.isLocationFinished() or !enabledLocation)
+
+        ) {
             binding.buttonDismissAlarm.isEnabled = true
-            with(binding) {
-                circularProgressLight.setProgressCompat(100, true)
-                circularProgressMotion.setProgressCompat(100, true)
-                circularProgressLocation.setProgressCompat(100, true)
-            }
         }
     }
 

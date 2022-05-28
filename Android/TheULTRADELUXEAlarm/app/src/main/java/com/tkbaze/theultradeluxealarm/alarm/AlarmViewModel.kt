@@ -57,7 +57,7 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
     }
 
     fun dismissAlarm(id: Long) {
-        return //TODO debug remove
+        //return //TODO debug remove
         viewModelScope.launch {
             val newAlarm = alarmDao.getAlarm(id).copy(set = false)
             alarmDao.update(newAlarm)

@@ -139,7 +139,7 @@ class InitMotionFragment : Fragment(), SensorEventListener {
             binding.textView.text = getString(R.string.motion_complete)
             GlobalScope.launch {
                 SettingsDataStore.saveValueMotionLimitToPreferencesStore(
-                    viewModel.deltaPerTen*1000,
+                    viewModel.deltaPerTen*100,
                     requireContext()
                 )
             }
