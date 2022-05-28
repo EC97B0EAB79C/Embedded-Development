@@ -4,7 +4,6 @@
 
     <uses-feature android:name="android.hardware.camera.any" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -50,6 +49,7 @@
         </receiver>
 
         <service android:name=".alarm.service.AlarmService" />
+        <service android:name=".alarm.service.AlarmResetService" />
     </application>
 
 </manifest>

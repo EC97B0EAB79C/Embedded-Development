@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class InitMotionFragment : Fragment(), SensorEventListener {
     companion object {
-        val TAG = "InitMotion"
+        const val TAG = "InitMotion"
     }
 
     private var _binding: FragmentInitMotionBinding? = null
@@ -115,7 +115,7 @@ class InitMotionFragment : Fragment(), SensorEventListener {
             val temp = with(p0) {
                 values[0] * values[0] + values[1] * values[1] + values[2] * values[2]
             }
-            Log.d(TAG,temp.toString())
+            Log.d(TAG, temp.toString())
             viewModel.addMotionDelta(temp)
             if (temp > 1)
                 ctr++

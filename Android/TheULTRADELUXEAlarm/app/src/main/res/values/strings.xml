@@ -6,6 +6,7 @@
     <string name="finish">finish</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="ok">OK</string>
     <string name="action_settings">Reset Setting</string>
     <string name="action_settings_question">Are you sure you want reset settings?</string>
 
@@ -47,6 +48,9 @@
     <string name="location_sensor_explain">Using GPS/Network to find your location</string>
     <string name="location_waiting">Scanning your Location</string>
     <string name="location_detected">Location Detected</string>
-    <string name="location_enabled">Using Location</string>
+    <string name="location_enabled">Use Location</string>
     <string name="location_disabled">Not Using Location</string>
+    <string name="location_no_title">Location Not Available</string>
+    <string name="location_no_text">Location service is not available on your device or permission is not given.</string>
+    <string name="hint_target_distance">Target Distance in Meters</string>
 </resources>

@@ -140,7 +140,7 @@ class SettingsDataStore(context: Context) {
             throw it
         }
     }.map { preference ->
-        preference[VALUE_LOCATION_LIMIT] ?: 0F
+        preference[VALUE_LOCATION_LIMIT] ?: 100F
     }
 }
 

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
@@ -19,14 +21,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         // Log Tag
-        private const val TAG="MainActivity"
+        private const val TAG = "MainActivity"
+
         // Permission variables
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS =
-            mutableListOf (
-                Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION
+        val REQUIRED_PERMISSIONS =
+            mutableListOf(
+                Manifest.permission.ACCESS_FINE_LOCATION
             ).toTypedArray()
     }
 
@@ -35,11 +38,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     // Placeholder variables
-    private var initialized=true
+    private var initialized = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 /*
@@ -49,33 +52,34 @@ class MainActivity : AppCompatActivity() {
         return
 
  */
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_CODE_PERMISSIONS
+            )
+        } else {
+            startTransaction()
+        }
 
-        SettingsDataStore= SettingsDataStore(applicationContext)
 
-        SettingsDataStore.initializedFlow.asLiveData().observe(this){
-            initialized=it
-            if(initialized){
+    }
+
+    private fun startTransaction() {
+        SettingsDataStore = SettingsDataStore(applicationContext)
+
+        SettingsDataStore.initializedFlow.asLiveData().observe(this) {
+            initialized = it
+            if (initialized) {
                 val intent: Intent = Intent(this, AlarmActivity::class.java)
                 startActivity(intent)
                 finish()
-            }
-            else{
+            } else {
                 val intent: Intent = Intent(this, InitActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
-        /*
-        if(initialized){
-            val intent: Intent = Intent(this, AlarmActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        else{
-            val intent: Intent = Intent(this, InitActivity::class.java)
-            startActivity(intent)
-        }
-         */
     }
 
     // Check if all permission is granted
@@ -88,16 +92,27 @@ class MainActivity : AppCompatActivity() {
     runs camera if permission is granted
     closes app when permission is not granted
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                TODO("function after checking permission")
+                Toast.makeText(
+                    this,
+                    "Permissions granted by the user.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                startTransaction()
             } else {
-                Toast.makeText(this,
+                Toast.makeText(
+                    this,
                     "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
-                finish()
+                    Toast.LENGTH_SHORT
+                ).show()
+                startTransaction()
             }
         }
     }
