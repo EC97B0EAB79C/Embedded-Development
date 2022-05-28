@@ -9,11 +9,11 @@
 
     <Button
         android:id="@+id/textTime"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textSize="60sp"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/material_dynamic_neutral50"
+        android:textSize="60sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="08:00" />
@@ -42,15 +42,14 @@
 
     <Button
         android:id="@+id/imageDelete"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:drawableTop="@drawable/ic_baseline_delete_24"
         android:contentDescription="@string/delete"
+        android:drawableTop="@drawable/ic_baseline_delete_24"
         android:minHeight="48dp"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintBottom_toBottomOf="@+id/textTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textTime"
-         />
+        app:layout_constraintTop_toTopOf="@+id/textTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

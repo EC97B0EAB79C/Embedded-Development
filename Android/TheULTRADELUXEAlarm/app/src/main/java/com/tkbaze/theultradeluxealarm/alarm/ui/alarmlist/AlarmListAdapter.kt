@@ -1,13 +1,10 @@
 package com.tkbaze.theultradeluxealarm.alarm.ui.alarmlist
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.get
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +15,6 @@ import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModel
 import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import com.tkbaze.theultradeluxealarm.databinding.AlarmListItemBinding
-import kotlinx.coroutines.processNextEventInCurrentThread
 
 
 class AlarmListAdapter(private val viewModel: AlarmViewModel) :

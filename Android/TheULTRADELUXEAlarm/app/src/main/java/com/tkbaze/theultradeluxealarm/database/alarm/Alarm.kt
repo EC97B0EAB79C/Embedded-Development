@@ -2,7 +2,6 @@ package com.tkbaze.theultradeluxealarm.database.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -52,11 +51,15 @@ data class Alarm(
         Log.d("Create", "" + calendar.timeInMillis + " " + System.currentTimeMillis())
 
         if (calendar.timeInMillis <= System.currentTimeMillis()) {
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1)
         }
 
         if (recurring) {
-            Toast.makeText(context, String.format("Recurring Alarm set at %d:%02d",hour,minute), Toast.LENGTH_LONG)
+            Toast.makeText(
+                context,
+                String.format("Recurring Alarm set at %d:%02d", hour, minute),
+                Toast.LENGTH_LONG
+            )
                 .show()
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
@@ -65,7 +68,11 @@ data class Alarm(
                 pendingIntent
             )
         } else {
-            Toast.makeText(context, String.format("Alarm set at %d:%02d",hour,minute), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                String.format("Alarm set at %d:%02d", hour, minute),
+                Toast.LENGTH_LONG
+            ).show()
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,

@@ -8,7 +8,6 @@ import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import com.tkbaze.theultradeluxealarm.database.alarm.AlarmDao
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
     AndroidViewModel(application) {
@@ -107,6 +106,7 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
 
     fun addMotionDelta(p0: FloatArray) {
         motion += p0[0] * p0[0] + p0[1] * p0[1] + p0[2] * p0[2]
+        if (motion > motionTarget) motion = motionTarget
         Log.d(TAG, motion.toString())
     }
 
@@ -136,7 +136,7 @@ class AlarmViewModel(application: Application, private val alarmDao: AlarmDao) :
     }
 
     fun reduceProgressMotion() {
-        motion -= motionTarget * .1F
+        motion -= motionTarget * .5F
     }
 
     fun progressLocation(): Float {

@@ -1,19 +1,19 @@
 package com.tkbaze.theultradeluxealarm.alarm.service
 
-import android.app.*
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
 import android.os.Vibrator
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.ring.AlarmRingActivity
-import com.tkbaze.theultradeluxealarm.init.InitActivity
 
 class AlarmService : Service() {
     companion object {
@@ -55,7 +55,7 @@ class AlarmService : Service() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel: NotificationChannel =
-                NotificationChannel("CHANNEL_ID", "Alarm", NotificationManager.IMPORTANCE_MAX)
+                NotificationChannel("CHANNEL_ID", "Alarm", NotificationManager.IMPORTANCE_HIGH)
 
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

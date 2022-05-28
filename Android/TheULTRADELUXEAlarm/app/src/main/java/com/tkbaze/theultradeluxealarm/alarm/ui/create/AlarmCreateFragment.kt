@@ -2,10 +2,10 @@ package com.tkbaze.theultradeluxealarm.alarm.ui.create
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
@@ -15,7 +15,6 @@ import com.tkbaze.theultradeluxealarm.alarm.AlarmApplication
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModel
 import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModelFactory
 import com.tkbaze.theultradeluxealarm.alarm.ui.alarmlist.AlarmListFragment
-import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import com.tkbaze.theultradeluxealarm.databinding.FragmentAlarmCreateBinding
 
 
@@ -33,11 +32,6 @@ class AlarmCreateFragment : Fragment() {
 
     // Placeholder variables
     private val tempId = 3808
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

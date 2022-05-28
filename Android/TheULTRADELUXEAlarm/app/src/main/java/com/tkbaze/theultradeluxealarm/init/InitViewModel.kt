@@ -26,7 +26,7 @@ class InitViewModel : ViewModel() {
     private var _deltaPerTen = 0F
     val deltaPerTen: Float get() = _deltaPerTen
 
-    fun addMotionDelta(delta:Float){
-        _deltaPerTen+=delta
+    fun addMotionDelta(delta: Float) {
+        _deltaPerTen += delta
     }
 }

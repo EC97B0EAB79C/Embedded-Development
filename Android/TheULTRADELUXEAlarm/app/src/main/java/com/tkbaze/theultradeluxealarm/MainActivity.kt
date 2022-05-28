@@ -3,22 +3,16 @@ package com.tkbaze.theultradeluxealarm
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
 import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
-import com.tkbaze.theultradeluxealarm.alarm.ring.AlarmRingActivity
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityMainBinding
 import com.tkbaze.theultradeluxealarm.init.InitActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     companion object {

@@ -1,19 +1,16 @@
 package com.tkbaze.theultradeluxealarm.init
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.AlarmActivity
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityInitBinding
-import com.tkbaze.theultradeluxealarm.databinding.AlarmActivityBinding
 import com.tkbaze.theultradeluxealarm.init.ui.light.InitLightFragment
 import com.tkbaze.theultradeluxealarm.init.ui.location.InitLocationFragment
 import com.tkbaze.theultradeluxealarm.init.ui.motion.InitMotionFragment
@@ -63,14 +60,13 @@ class InitActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode==KeyEvent.KEYCODE_BACK){
-            if (viewModel.progress!=0){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (viewModel.progress != 0) {
                 supportFragmentManager.popBackStack()
                 viewModel.prevProgress()
                 updateUI()
                 return true
-            }
-            else{
+            } else {
                 finish()
             }
         }
@@ -112,11 +108,11 @@ class InitActivity : AppCompatActivity() {
             0 -> transaction.replace(R.id.settingFragment, InitLightFragment())
             1 -> {
                 transaction.replace(R.id.settingFragment, InitMotionFragment())
-                transaction.addToBackStack( "BackStackInit" )
+                transaction.addToBackStack("BackStackInit")
             }
             2 -> {
                 transaction.replace(R.id.settingFragment, InitLocationFragment())
-                transaction.addToBackStack( "BackStackInit" )
+                transaction.addToBackStack("BackStackInit")
             }
         }
 

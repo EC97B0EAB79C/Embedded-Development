@@ -1,7 +1,6 @@
 package com.tkbaze.theultradeluxealarm.database.alarm
 
 import androidx.room.*
-import com.tkbaze.theultradeluxealarm.database.alarm.Alarm
 import kotlinx.coroutines.flow.Flow
 
 

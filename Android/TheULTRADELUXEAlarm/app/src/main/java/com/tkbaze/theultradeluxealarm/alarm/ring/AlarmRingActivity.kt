@@ -11,12 +11,12 @@ import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.*
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -26,9 +26,6 @@ import com.tkbaze.theultradeluxealarm.alarm.AlarmViewModelFactory
 import com.tkbaze.theultradeluxealarm.alarm.service.AlarmService
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.ActivityAlarmRingBinding
-import kotlinx.coroutines.processNextEventInCurrentThread
-import java.util.*
-import kotlin.concurrent.scheduleAtFixedRate
 
 class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationListener {
     companion object {
@@ -54,6 +51,8 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     // Location Manager
     private lateinit var locationManager: LocationManager
 
+    // Handler
+    private var handler: Handler = Handler()
     private var changed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,16 +96,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
 
         Log.d("Ring", "Ring Started")
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (!changed) {
-                val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
-                AlarmService.vibrator.vibrate(pattern, 0)
-            }
-            changed = false
-            Log.d(TAG, "Handler")
-            viewModel.reduceProgressMotion()
-            sensorManager.registerListener(this, motion, SensorManager.SENSOR_DELAY_NORMAL)
-        }, 1000 * 60 * 1)
+
     }
 
     private fun initUI() {
@@ -161,7 +151,7 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
         binding.buttonDismissAlarm.setOnClickListener {
             val intent = Intent(applicationContext, AlarmService::class.java)
             applicationContext.stopService(intent)
-            finish();
+            finish()
         }
 
     }
@@ -235,25 +225,25 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
 
             binding.buttonDismissAlarm.isEnabled = true
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-
+        //Restart Sound if no sensor change
+        handler.removeCallbacksAndMessages(null)
+        //Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            if (!changed) {
+                val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
+                AlarmService.vibrator.vibrate(pattern, 0)
+            }
+            changed = false
+            Log.d(TAG, "Handler")
+            viewModel.reduceProgressMotion()
+            sensorManager.registerListener(this, motion, SensorManager.SENSOR_DELAY_NORMAL)
+        }, 1000 * 60 * 1)
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
         Log.d(TAG, String.format("Sensor[%s]: %d", p0.toString(), p0!!.values[0].toInt()))
-        when (p0!!.sensor.type) {
+        when (p0.sensor.type) {
             Sensor.TYPE_LINEAR_ACCELERATION -> {
                 viewModel.addMotionDelta(p0.values)
             }

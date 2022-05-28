@@ -2,28 +2,23 @@ package com.tkbaze.theultradeluxealarm.init.ui.location
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.tkbaze.theultradeluxealarm.MainActivity
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.data.SettingsDataStore
 import com.tkbaze.theultradeluxealarm.databinding.FragmentInitLocationBinding
-import com.tkbaze.theultradeluxealarm.databinding.FragmentInitMotionBinding
 import com.tkbaze.theultradeluxealarm.init.InitViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -43,11 +38,6 @@ class InitLocationFragment : Fragment(), LocationListener {
     private lateinit var SettingsDataStore: SettingsDataStore
 
     private var distance = 0F
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

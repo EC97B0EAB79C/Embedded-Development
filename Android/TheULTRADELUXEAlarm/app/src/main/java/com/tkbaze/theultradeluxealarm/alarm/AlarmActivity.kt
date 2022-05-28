@@ -1,8 +1,7 @@
 package com.tkbaze.theultradeluxealarm.alarm
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
 import com.tkbaze.theultradeluxealarm.R
 import com.tkbaze.theultradeluxealarm.alarm.ui.alarmlist.AlarmListFragment
 

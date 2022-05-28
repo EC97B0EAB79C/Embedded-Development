@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    tools:context=".alarm.ring.AlarmRingActivity">
+    tools:context=".alarm.ring.AlarmRingActivity"
+    android:padding="16dp">
 
     <TextClock
         android:id="@+id/textCurrentTime"

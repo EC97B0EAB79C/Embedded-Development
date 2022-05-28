@@ -2,10 +2,8 @@ package com.tkbaze.theultradeluxealarm.database.alarm
 
 import android.content.Context
 import androidx.room.Database
-import androidx.room.DatabaseConfiguration
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
 
 @Database(entities = [Alarm::class], version = 1, exportSchema = false)
 abstract class AlarmRoomDatabase : RoomDatabase() {
