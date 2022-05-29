@@ -157,6 +157,8 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
     }
 
     private fun updateUI() {
+        handler.removeCallbacksAndMessages(null)
+
         if (enabledLight) {
             if (viewModel.isLightFinished()) {
 
@@ -224,21 +226,21 @@ class AlarmRingActivity : AppCompatActivity(), SensorEventListener, LocationList
                 locationManager.removeUpdates(this)
 
             binding.buttonDismissAlarm.isEnabled = true
-        }
+        } else {
+            //Restart Sound if no sensor change
 
-        //Restart Sound if no sensor change
-        handler.removeCallbacksAndMessages(null)
-        //Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            if (!changed) {
-                val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
-                AlarmService.vibrator.vibrate(pattern, 0)
-            }
-            changed = false
-            Log.d(TAG, "Handler")
-            viewModel.reduceProgressMotion()
-            sensorManager.registerListener(this, motion, SensorManager.SENSOR_DELAY_NORMAL)
-        }, 1000 * 60 * 1)
+            //Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                if (!changed) {
+                    val pattern: LongArray = listOf<Long>(100, 1000).toLongArray()
+                    AlarmService.vibrator.vibrate(pattern, 0)
+                }
+                changed = false
+                Log.d(TAG, "Handler")
+                viewModel.reduceProgressMotion()
+                sensorManager.registerListener(this, motion, SensorManager.SENSOR_DELAY_NORMAL)
+            }, 1000 * 60 * 1)
+        }
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {

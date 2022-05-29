@@ -44,8 +44,8 @@ class AlarmService : Service() {
         val notification =
             NotificationCompat.Builder(this, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Alarm")
-                .setContentText("Alarm temp text")
+                .setContentTitle("Alarm is Ringing")
+                .setContentText("Touch to start disabling alarm")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setFullScreenIntent(pendingIntent, true)

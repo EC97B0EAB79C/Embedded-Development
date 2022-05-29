@@ -124,6 +124,7 @@ class InitMotionFragment : Fragment(), SensorEventListener {
 
     private fun updateUI() {
         binding.circularProgress.setProgressCompat((ctr.toFloat() / .1F).toInt(), true)
+        binding.textView.text = getString(R.string.motion_detected)
         if (ctr == 10) {
             binding.switchMotion.isEnabled = true
             binding.textView.text = getString(R.string.motion_complete)

@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun startTransaction() {
         SettingsDataStore = SettingsDataStore(applicationContext)
-
         SettingsDataStore.initializedFlow.asLiveData().observe(this) {
             initialized = it
             if (initialized) {

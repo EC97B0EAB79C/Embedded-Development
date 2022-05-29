@@ -134,6 +134,7 @@ class InitLocationFragment : Fragment(), LocationListener {
 
     override fun onLocationChanged(p0: Location) {
         binding.circularProgress.setProgressCompat(100, true)
+        binding.textView.text = getString(R.string.location_detected)
         binding.switchLocation.isEnabled = true
         binding.editTextNumberDecimal.isEnabled = true
     }
