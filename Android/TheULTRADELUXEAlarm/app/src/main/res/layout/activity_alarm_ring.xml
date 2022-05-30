@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    tools:context=".alarm.ring.AlarmRingActivity"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".alarm.ring.AlarmRingActivity">
 
     <TextClock
         android:id="@+id/textCurrentTime"
@@ -26,7 +26,8 @@
         android:indeterminate="true"
         android:progress="50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentTime" />
+        app:layout_constraintTop_toBottomOf="@+id/textCurrentTime"
+        app:trackThickness="8dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circularProgressMotion"
@@ -36,7 +37,8 @@
         android:indeterminate="true"
         android:progress="50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularProgressLight" />
+        app:layout_constraintTop_toBottomOf="@+id/circularProgressLight"
+        app:trackThickness="8dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circularProgressLocation"
@@ -46,7 +48,8 @@
         android:indeterminate="true"
         android:progress="50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularProgressMotion" />
+        app:layout_constraintTop_toBottomOf="@+id/circularProgressMotion"
+        app:trackThickness="8dp" />
 
     <TextView
         android:id="@+id/textViewLight"

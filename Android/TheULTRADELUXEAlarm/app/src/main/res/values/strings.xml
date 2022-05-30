@@ -28,7 +28,7 @@
     <string name="inst_light_off">Turn off Room\'s Light</string>
     <!-- Light -->
     <string name="light_sensor_title">Light Sensor</string>
-    <string name="light_explain">Move slider to adjust TODO</string>
+    <string name="light_explain">Move slider to adjust sensitivity for your room</string>
     <string name="light_on">Light ON</string>
     <string name="light_off">Light OFF</string>
     <string name="light_no_title">No Sensor</string>
