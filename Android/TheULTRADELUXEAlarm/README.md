@@ -2,7 +2,7 @@
 An alarm app made with various of sensors for Android developemint assignment.
 
 ## Overview
-This Alarm application uses Light, Motion sensor and Location information for tasks to dismissing alarm.
+This Alarm application uses Light, Motion sensor and Location information for tasks to dismiss alarm.
 Users have to perform next actions of chosen sensors to dismiss the alarm.
 1. Light - Turn on room's light
 1. Motion - Move with phone
