@@ -81,13 +81,9 @@ class InitActivity : AppCompatActivity() {
     private fun updateUI() {
         // Progress bar
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            binding.progressBar.setProgress(
-                ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt(),
-                true
-            )
+            binding.progressBar.setProgress(viewModel.getProgressPercent(), true)
         } else {
-            binding.progressBar.progress =
-                ((viewModel.progress.toFloat() / viewModel.totalProgress.toFloat()) * 100).toInt()
+            binding.progressBar.progress = viewModel.getProgressPercent()
         }
 
         // Previous button enable

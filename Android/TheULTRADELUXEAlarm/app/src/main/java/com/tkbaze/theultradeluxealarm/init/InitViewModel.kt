@@ -22,6 +22,10 @@ class InitViewModel : ViewModel() {
             _progress--
     }
 
+    fun getProgressPercent(): Int {
+        return ((progress + 1).toFloat() / (totalProgress + 1).toFloat() * 100F).toInt()
+    }
+
     //motion
     private var _deltaPerTen = 0F
     val deltaPerTen: Float get() = _deltaPerTen

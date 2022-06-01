@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUIRED_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
         } else {
