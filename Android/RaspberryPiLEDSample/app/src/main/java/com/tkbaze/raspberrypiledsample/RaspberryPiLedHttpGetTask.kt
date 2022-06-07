@@ -36,7 +36,6 @@ class RaspberryPiLedHttpGetTask(private val parentActivity: Activity) :
 
     private fun exec_get():String{
         var http:HttpURLConnection?=null
-        var inputStream:InputStream?=null
         var src:String=""
 
         try {
@@ -45,20 +44,13 @@ class RaspberryPiLedHttpGetTask(private val parentActivity: Activity) :
             http.requestMethod="GET"
             http.connect()
 
-            inputStream=http.inputStream
-            var line=ByteArray(1024)
-            var size:Int;
-            while (true){
-                size=inputStream.read(line)
-                if(size<=0)break
-                src+=line.toString()
-            }
+            src = http.inputStream.bufferedReader().readText()
+
         }catch (e:Exception){
             e.printStackTrace()
         }finally {
             try {
                 http?.disconnect()
-                inputStream?.close()
             }catch (e:Exception){
 
             }

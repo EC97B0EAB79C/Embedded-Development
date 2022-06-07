@@ -73,7 +73,6 @@ class HttpGetTask(private val parentActivity: Activity, private val textView: Te
             sleep(5000)
 
             var http: HttpURLConnection? = null
-            var inputStream: InputStream? = null
 
             try {
                 val url: URL = URL(uri)
@@ -88,7 +87,6 @@ class HttpGetTask(private val parentActivity: Activity, private val textView: Te
             } finally {
                 try {
                     http?.disconnect()
-                    inputStream?.close()
                 } catch (ignored: Exception) {
 
                 }

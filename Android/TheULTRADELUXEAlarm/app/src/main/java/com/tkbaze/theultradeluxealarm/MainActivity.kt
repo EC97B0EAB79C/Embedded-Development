@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // Placeholder variables
     private var initialized = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,14 +38,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-/*
-        val intent: Intent = Intent(this, AlarmRingActivity::class.java)
-        startActivity(intent)
-        finish()
-        return
-
- */
         if (!allPermissionsGranted()) {
+            // Request Permission
             ActivityCompat.requestPermissions(
                 this,
                 REQUIRED_PERMISSIONS,
@@ -59,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // Starts Activities according to initialized status
     private fun startTransaction() {
         SettingsDataStore = SettingsDataStore(applicationContext)
         SettingsDataStore.initializedFlow.asLiveData().observe(this) {
@@ -82,8 +76,6 @@ class MainActivity : AppCompatActivity() {
 
     /*
     Runs after permission request
-    runs camera if permission is granted
-    closes app when permission is not granted
      */
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -93,18 +85,22 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
+                /*
                 Toast.makeText(
                     this,
                     "Permissions granted by the user.",
                     Toast.LENGTH_SHORT
                 ).show()
+                 */
                 startTransaction()
             } else {
+                /*
                 Toast.makeText(
                     this,
                     "Permissions not granted by the user.",
                     Toast.LENGTH_SHORT
                 ).show()
+                 */
                 startTransaction()
             }
         }
