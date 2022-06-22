@@ -3,7 +3,7 @@ pulse sequence generator for AC remote RH151
 usage:
     AcPulseGenerator [ON/OFF] [Temperature(16-31)]
 to send pulse(use ir-ctl):
-    sudo ./AcPulseGenerator 0 25 > ac.pluse && ir-ctl -d /dev/lirc0 --send=./ac.pluse
+    sudo ./AcPulseGenerator 0 25 > ac.pulse && ir-ctl -d /dev/lirc0 --send=./ac.pulse
 **********************************************************/
 
 #include<stdio.h>
