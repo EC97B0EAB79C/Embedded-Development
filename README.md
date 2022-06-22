@@ -31,6 +31,8 @@ C program for reading switch ON/OFF on Raspberry Pi
 C program for i2c temperature sensor on Raspberry Pi
 1. [ledtest php](./WiringPi/ledtest.php):
 php program for running ledtest program using url
+1. [AcPulseGenerator](./WiringPi/AcPulseGenerator.cpp)
+C program for making pulse sequence for AC remote
 
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**
