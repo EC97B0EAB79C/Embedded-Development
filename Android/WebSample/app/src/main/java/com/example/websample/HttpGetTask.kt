@@ -19,6 +19,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.setPadding
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +31,13 @@ import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 
-class HttpGetTask(private val parentActivity: Activity, private val textView: TextView) :
+class HttpGetTask(private val parentActivity: Activity) :
     ViewModel() {
     private val uri: String = "https://www.yamagiwalab.jp/~yama/KPK/Hello.html"
     //private val uri: String = "https://www.google.com"
+
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> get()= _text
 
     fun getWeb() {
         viewModelScope.launch {
@@ -54,7 +59,7 @@ class HttpGetTask(private val parentActivity: Activity, private val textView: Te
             parentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
             // call and get html
-            textView.text = getHttp()
+            _text.value = getHttp()
 
             // hide AlertDialog and set screen touchable
             dialog.hide()

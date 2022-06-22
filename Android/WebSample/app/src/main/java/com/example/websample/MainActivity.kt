@@ -18,16 +18,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel = HttpGetTask(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.text.observe(this) { text ->
+            binding.textViewReturn.text = text
+        }
+
         binding.button.setOnClickListener {
-            Log.d(TAG, "wlog onClick()")
-            val task: HttpGetTask = HttpGetTask(this, binding.textViewReturn)
-            task.getWeb()
+            Log.d(TAG, "log onClick()")
+            viewModel.getWeb()
         }
     }
 }
