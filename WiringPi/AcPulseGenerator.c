@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
             fprintf(stderr, "TODO");
         }
         else {
-            temperature = atoi(argv[1]);
+            temperature = atoi(argv[2]);
         }
     }
     temp = fopen("./temperature.data", "w");
