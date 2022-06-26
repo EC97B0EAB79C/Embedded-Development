@@ -50,5 +50,9 @@ php program for running AcAutoOn program over network
 1. [ac_setting php](./php/ac_setting.php):
 php program for reading AC setting and status over network
 
+## Tool
+1. [IR Decoder](./Tool/IrDecoderAEHA.py):
+IR Decoder of AEHA, from IR pulse file to binary
+
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**

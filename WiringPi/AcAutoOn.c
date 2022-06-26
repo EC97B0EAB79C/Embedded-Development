@@ -6,7 +6,7 @@ usage:
     AcPulseGenerator
         :creates IR pulse sequence
 to send pulse(use ir-ctl):
-    sudo ./AcAutoOn > ac.pulse && ir-ctl -d /dev/lirc0 --send=./ac.pulse
+    sudo ./AcAutoOn && ir-ctl -d /dev/lirc0 --send=./ac.pulse
 **********************************************************/
 
 #include<stdio.h>
