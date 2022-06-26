@@ -33,6 +33,8 @@ C program for i2c temperature sensor on Raspberry Pi
 C program for making pulse sequence for AC remote
 1. [AcAutoOn](./WiringPi/AcAutoOn.c):
 C progarm for automatically creating pulse to turn of AC if current temperature is above setting temperature
+> to run regularly on crontab(root)
+> \* \* \* \* \* /home/pi/AcAutoOn ; /usr/bin/ir-ctl -d /dev/lirc0 --send=/home/pi/ac.pulse
 
 ## PHP
 PHP program to use WirigPi programs over network
