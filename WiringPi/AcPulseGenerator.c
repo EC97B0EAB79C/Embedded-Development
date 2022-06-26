@@ -23,6 +23,8 @@ byte sendBytePulse(byte data);
 byte sendOnOff(int isOn);
 byte sendTemperature(byte p0);
 
+FILE* temp;
+
 int main(int argc, char* argv[]) {
 
 
@@ -36,7 +38,7 @@ int main(int argc, char* argv[]) {
             default: 25
             Temperature > temperature.data
     */
-    FILE* temp;
+    
     int isOn = 1;
     if (argc > 1) {
         int temp = atoi(argv[1]);
@@ -47,7 +49,7 @@ int main(int argc, char* argv[]) {
             isOn = atoi(argv[1]);
         }
     }
-    temp = fopen("./isOn.data", "w");
+    temp = fopen("/home/pi/isOn.data", "w");
     fprintf(temp, "%d", isOn);
     fclose(temp);
 
@@ -61,11 +63,13 @@ int main(int argc, char* argv[]) {
             temperature = atoi(argv[2]);
         }
     }
-    temp = fopen("./temperature.data", "w");
+    temp = fopen("/home/pi/temperature.data", "w");
     fprintf(temp, "%d", temperature);
     fclose(temp);
 
     // parity byte the sum of every byte of sequence
+    temp = fopen("/home/pi/ac.pulse", "w");
+
     byte parityByte = 0;
 
     for (int j = 0; j < 2; j++) {
@@ -90,31 +94,32 @@ int main(int argc, char* argv[]) {
         }
         sendEndPulse();
     }
+    fclose(temp);
 
 }
 
 // send pulse indicating start of transmission
 void sendLeaderPulse() {
-    printf("pulse %d\n", T * 8);
-    printf("space %d\n", T * 4);
+    fprintf(temp, "pulse %d\n", T * 8);
+    fprintf(temp, "space %d\n", T * 4);
 }
 
 // send pulse indicating end of transmission
 void sendEndPulse() {
-    printf("pulse %d\n", T * 1);
-    printf("space %d\n", T * 30);
+    fprintf(temp, "pulse %d\n", T * 1);
+    fprintf(temp, "space %d\n", T * 30);
 }
 
 // transfer byte to pulse and transmit
 byte sendBytePulse(byte data) {
     for (int i = 0; i < 8; i++) {
         if ((data >> i) & 1) {
-            printf("pulse %d\n", T * 1);
-            printf("space %d\n", T * 3);
+            fprintf(temp, "pulse %d\n", T * 1);
+            fprintf(temp, "space %d\n", T * 3);
         }
         else {
-            printf("pulse %d\n", T * 1);
-            printf("space %d\n", T * 1);
+            fprintf(temp, "pulse %d\n", T * 1);
+            fprintf(temp, "space %d\n", T * 1);
         }
     }
     return data;

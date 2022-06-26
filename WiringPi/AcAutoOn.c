@@ -33,8 +33,9 @@ byte sendBytePulse(byte data);
 byte sendOnOff(int isOn);
 byte sendTemperature(byte p0);
 
+FILE* temp;
+
 int main(int argc, char* argv[]){
-    FILE* temp;
     
     int isEnabled;
     int autoOnTemp;
@@ -44,20 +45,28 @@ int main(int argc, char* argv[]){
         autoOnTemp=atoi(argv[2]);
         targetTemp=atoi(argv[3]);
         
-        temp = fopen("autoSetting.data","w");
+        temp = fopen("/home/pi/autoSetting.data","w");
         fprintf(temp,"%d %d %d",isEnabled,autoOnTemp,targetTemp);
         fclose(temp);
         return 0;
     }
     else{
-        if(temp=fopen("autoSetting.data","r")){
+        if(temp=fopen("/home/pi/autoSetting.data","r")){
             fscanf(temp,"%d %d %d",&isEnabled,&autoOnTemp,&targetTemp);
-            //fprintf(stdout,"%d %d %d",isEnabled,autoOnTemp,targetTemp);
             fclose(temp);
         }
         else{
             fprintf(stderr,"Setting does not exist\n");
             return 0;
+        }
+        
+        if(temp=fopen("/home/pi/isOn.data","r")){
+            int isOn;
+            fscanf(temp,"%d",&isOn);
+            fclose(temp);
+            if(isOn){
+                isEnabled=0;
+            }
         }
         
     }
@@ -70,11 +79,17 @@ int main(int argc, char* argv[]){
         if current temperature is above setting temperature
         and is enabled
     */
+    
+
     if(temperature>autoOnTemp && isEnabled){
-        
+        temp=fopen("/home/pi/isOn.data","w");
+        fprintf(temp,"%d",1);
+        fclose(temp);
+
         // parity byte the sum of every byte of sequence
         byte parityByte = 0;
 
+        temp = fopen("/home/pi/ac.pulse", "w");
         for (int j = 0; j < 2; j++) {
             sendLeaderPulse();
             for (int i = 0; i < 18; i++) {
@@ -100,34 +115,35 @@ int main(int argc, char* argv[]){
     }
     // create empty pulse elsewise
     else{
+        temp = fopen("/home/pi/ac.pulse", "w");
         sendLeaderPulse();
         sendEndPulse();
     }
-
+    fclose(temp);
 }
 
 // send pulse indicating start of transmission
 void sendLeaderPulse() {
-    printf("pulse %d\n", T * 8);
-    printf("space %d\n", T * 4);
+    fprintf(temp, "pulse %d\n", T * 8);
+    fprintf(temp, "space %d\n", T * 4);
 }
 
 // send pulse indicating end of transmission
 void sendEndPulse() {
-    printf("pulse %d\n", T * 1);
-    printf("space %d\n", T * 30);
+    fprintf(temp, "pulse %d\n", T * 1);
+    fprintf(temp, "space %d\n", T * 30);
 }
 
 // transfer byte to pulse and transmit
 byte sendBytePulse(byte data) {
     for (int i = 0; i < 8; i++) {
         if ((data >> i) & 1) {
-            printf("pulse %d\n", T * 1);
-            printf("space %d\n", T * 3);
+            fprintf(temp, "pulse %d\n", T * 1);
+            fprintf(temp, "space %d\n", T * 3);
         }
         else {
-            printf("pulse %d\n", T * 1);
-            printf("space %d\n", T * 1);
+            fprintf(temp, "pulse %d\n", T * 1);
+            fprintf(temp, "space %d\n", T * 1);
         }
     }
     return data;

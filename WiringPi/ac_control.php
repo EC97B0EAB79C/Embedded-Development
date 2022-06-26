@@ -9,7 +9,7 @@ if(!is_null($_GET["isOn"])&&!is_null($_GET["targetTemp"])){
     $sconnection=ssh2_connect(ADDRESS,22);
     ssh2_auth_password($sconnection,USER,PASSWORD);
 
-    $commamd=ACCONTROL." ".$_GET["isOn"]." ".$_GET["targetTemp"]." > /home/pi/ac.pulse";
+    $commamd=ACCONTROL." ".$_GET["isOn"]." ".$_GET["targetTemp"];
     $stream = ssh2_exec($sconnection, $commamd);
     stream_set_blocking($stream, true);
     $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
