@@ -29,12 +29,24 @@ C program for switching LED ON/OFF on Raspberry Pi
 C program for reading switch ON/OFF on Raspberry Pi
 1. [i2c_ds1631](./WiringPi/i2c_ds1631.c):
 C program for i2c temperature sensor on Raspberry Pi
-1. [ledtest php](./WiringPi/ledtest.php):
-php program for running ledtest program using url
 1. [AcPulseGenerator](./WiringPi/AcPulseGenerator.c):
 C program for making pulse sequence for AC remote
 1. [AcAutoOn](./WiringPi/AcAutoOn.c):
 C progarm for automatically creating pulse to turn of AC if current temperature is above setting temperature
+
+## PHP
+PHP program to use WirigPi programs over network
+### Project List
+1. [ledtest php](./php/ledtest.php):
+php program for running ledtest program over network
+1. [current_temperature php](./php/current_temperature.php):
+php program for running i2c_ds1631 program over network
+1. [ac_control php](./php/ac_control.php):
+php program for running AcPulseGenerator program and ir-ctl over network
+1. [ac_auto php](./php/ac_auto.php):
+php program for running AcAutoOn program over network
+1. [ac_setting php](./php/ac_setting.php):
+php program for reading AC setting and status over network
 
 ## Disclaimer
 **Please do not use programs in this repository *as-is* for purposes like assignments.**
