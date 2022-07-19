@@ -72,7 +72,6 @@ int main(int argc, char* argv[]){
     }
     
     float temperature = getCurrentTemp();
-    //fprintf(stdout,"%f\n",temperature);
 
     /*
         create IR sequence 
