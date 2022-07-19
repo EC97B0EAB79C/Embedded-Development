@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     if (argc > 1) {
         int temp = atoi(argv[1]);
         if (temp != 0 && temp != 1) {
-            fprintf(stderr, "ON/OFF should be 0 or 1 using saved value");
+            fprintf(stderr, "ON/OFF should be 0 or 1\n");
         }
         else {
             isOn = atoi(argv[1]);
@@ -56,8 +56,8 @@ int main(int argc, char* argv[]) {
     int temperature = 25;
     if (argc > 2) {
         int temp = atoi(argv[2]);
-        if (16 > temp && temp > 31) {
-            fprintf(stderr, "TODO");
+        if (16 > temp || temp > 31) {
+            fprintf(stderr, "Temparature should be between 16 and 31\n");
         }
         else {
             temperature = atoi(argv[2]);
