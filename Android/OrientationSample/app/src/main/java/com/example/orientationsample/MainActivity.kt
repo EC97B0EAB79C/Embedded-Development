@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         Next, get acceleration and magnetic sensor then register listener for both sensors
          */
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        val accelerationSensor: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        val magneticSensor: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        val accelerationSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        val magneticSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
         sensorManager.registerListener(this, accelerationSensor, SensorManager.SENSOR_DELAY_UI)
         sensorManager.registerListener(this, magneticSensor, SensorManager.SENSOR_DELAY_UI)
 
