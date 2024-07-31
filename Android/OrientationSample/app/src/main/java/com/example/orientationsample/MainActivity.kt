@@ -5,12 +5,25 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.orientationsample.databinding.ActivityMainBinding
+import com.example.orientationsample.ui.theme.OrientationSampleTheme
 import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -84,16 +97,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
      */
     private fun updateText() {
         SensorManager.getRotationMatrix(
-            mInRotationMatrix,
-            mInclinationMatrix,
-            mAccelerationValue,
-            mGeoMagneticValue
+            mInRotationMatrix, mInclinationMatrix, mAccelerationValue, mGeoMagneticValue
         )
         SensorManager.remapCoordinateSystem(
-            mInRotationMatrix,
-            SensorManager.AXIS_X,
-            SensorManager.AXIS_Z,
-            mOutRotationMatrix
+            mInRotationMatrix, SensorManager.AXIS_X, SensorManager.AXIS_Z, mOutRotationMatrix
         )
         SensorManager.getOrientation(mOutRotationMatrix, mOrientationValue)
 
@@ -103,5 +110,49 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             (floor(Math.toDegrees(mOrientationValue[1].toDouble()))).toString()
         binding.textViewRoll.text =
             (floor(Math.toDegrees(mOrientationValue[2].toDouble()))).toString()
+    }
+}
+
+@Composable
+fun MyApp(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .padding(8.dp)
+            .fillMaxSize(), verticalArrangement = Arrangement.Top
+    ) {
+        ActionRow(modifier)
+        DataView(modifier)
+    }
+}
+
+@Composable
+fun ActionRow(modifier: Modifier = Modifier) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        ElevatedButton(onClick = { /*TODO*/ }) {
+            Text(text = "Button")
+        }
+        Spacer(modifier = Modifier.weight(1.0f))
+        Checkbox(checked = false, onCheckedChange = {})
+        Text(text = "Realtime")
+    }
+}
+
+@Composable
+fun DataView(modifier: Modifier = Modifier){
+    Text(text = "Orientation:", Modifier.padding(top = 8.dp))
+    Column(modifier = Modifier.padding(start = 8.dp)) {
+        Text(text = "test1", style = MaterialTheme.typography.body2)
+        Text(text = "test2", style = MaterialTheme.typography.body2)
+        Text(text = "test3", style = MaterialTheme.typography.body2)
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun MyAppPreview() {
+    OrientationSampleTheme {
+        MyApp(Modifier.fillMaxSize())
     }
 }
