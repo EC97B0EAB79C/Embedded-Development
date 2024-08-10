@@ -75,7 +75,6 @@ fun DataView(
 @Composable
 fun OrientationScreenPreview() {
     OrientationSampleTheme {
-        OrientationSampleTheme {
             OrientationScreen(
                 modifier = Modifier.fillMaxSize(),
                 orientation = MutableLiveData(floatArrayOf(45.0f, 30.0f, 90.0f)),
@@ -83,6 +82,5 @@ fun OrientationScreenPreview() {
                 onClick = {},
                 onCheckChanged = {}
             )
-        }
     }
 }
