@@ -36,8 +36,6 @@ fun LocationScreen(
         DataView("WiFi", wifiLocation)
         GetLocationControl(onClick = onClick)
     }
-
-
 }
 
 @Composable
@@ -71,7 +69,6 @@ fun GetLocationControl(
             Text("WiFi")
         }
     }
-
 }
 
 @Preview(showBackground = true, widthDp = 320)
@@ -79,17 +76,15 @@ fun GetLocationControl(
 fun LocationScreenPreview(
     modifier: Modifier = Modifier,
 ) {
+    val initData = MutableLiveData(Location("dummyprovider").apply {
+        latitude = 0.0
+        longitude = 0.0
+    })
     LocationSampleTheme {
         LocationScreen(
             modifier = Modifier.fillMaxSize(),
-            MutableLiveData(Location("dummyprovider").apply {
-                latitude = 0.0
-                longitude = 0.0
-            }),
-            MutableLiveData(Location("dummyprovider").apply {
-                latitude = 0.0
-                longitude = 0.0
-            }),
+            initData,
+            initData,
         )
     }
 }
