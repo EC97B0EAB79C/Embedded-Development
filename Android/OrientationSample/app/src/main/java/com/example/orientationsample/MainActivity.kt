@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(OrientationViewModel::class.java)
         setContent {
             OrientationSampleTheme {
-                OrientationScreen(Modifier.fillMaxSize(),
+                OrientationScreen(
+                    Modifier.fillMaxSize(),
                     viewModel.orientationValue,
                     viewModel.realTime,
                     { viewModel.update() },
