@@ -1,5 +1,6 @@
 package com.example.intentsample
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -35,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MyApp(
                 locationViewModel = locationViewModel, orientationViewModel = orientationViewModel
+            )
+        }
+
+        if (!locationViewModel.checkLocationPermission()) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101
             )
         }
     }
