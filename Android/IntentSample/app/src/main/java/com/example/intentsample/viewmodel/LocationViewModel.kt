@@ -8,6 +8,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +34,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
     //TODO Change to Enum in the future
     fun update(type: String) {
+        Log.d("LocationViewModel", "update of ${type} called")
         when (type) {
             "gps" -> locationUpdate(LocationManager.GPS_PROVIDER, _gpsLocation)
             "wifi" -> locationUpdate(LocationManager.NETWORK_PROVIDER, _wifiLocation)
@@ -43,6 +45,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
         if (!checkLocationPermission()) return
         val locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
+                Log.d("LocationViewModel", "onLocationChanged of ${provider} called")
                 locationData.value = location
                 locationManager.removeUpdates(this)
             }

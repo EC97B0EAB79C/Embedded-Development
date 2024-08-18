@@ -12,12 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntentSample">
         <activity
-            android:name=".LocationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrientationActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

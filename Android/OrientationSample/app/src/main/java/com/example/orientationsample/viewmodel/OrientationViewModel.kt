@@ -63,7 +63,7 @@ class OrientationViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun update() {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default)   {
             val resultOrientation = FloatArray(3)
             SensorManager.getRotationMatrix(
                 inRotationMatrix, inclinationMatrix, accelerationValue, geoMagneticValue
