@@ -1,4 +1,4 @@
-package com.example.orientationsample.viewmodel
+package com.example.intentsample.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -10,15 +10,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+
 class OrientationViewModel(application: Application) : AndroidViewModel(application) {
-    private val _orientationValue: MutableLiveData<FloatArray> = MutableLiveData(FloatArray(3))
-    val orientationValue: LiveData<FloatArray> = _orientationValue
+    private val _orientationValue: MutableStateFlow<FloatArray> = MutableStateFlow(FloatArray(3))
+    val orientationValue: StateFlow<FloatArray> = _orientationValue.asStateFlow()
 
     var realTime by mutableStateOf(false)
 
@@ -63,7 +65,7 @@ class OrientationViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun update() {
-        viewModelScope.launch(Dispatchers.Default)   {
+        viewModelScope.launch(Dispatchers.Default) {
             val resultOrientation = FloatArray(3)
             SensorManager.getRotationMatrix(
                 inRotationMatrix, inclinationMatrix, accelerationValue, geoMagneticValue
@@ -73,9 +75,9 @@ class OrientationViewModel(application: Application) : AndroidViewModel(applicat
             )
             SensorManager.getOrientation(outRotationMatrix, resultOrientation)
 
-            _orientationValue.postValue(resultOrientation.map { angle ->
+            _orientationValue.value = resultOrientation.map { angle ->
                 Math.toDegrees(angle.toDouble()).toFloat()
-            }.toFloatArray())
+            }.toFloatArray()
         }
     }
 
