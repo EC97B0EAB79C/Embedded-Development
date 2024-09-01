@@ -58,17 +58,16 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
         locationManager.requestLocationUpdates(provider, 0, 0f, locationListener)
     }
 
-    fun checkLocationPermission(): Boolean {
-        val context = getApplication<Application>().applicationContext
+    fun checkLocationPermission() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+            getApplication<Application>().applicationContext, it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
-        val fineLocationPermission = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.ACCESS_FINE_LOCATION
-        )
-        val coarseLocationPermission = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-
-        return fineLocationPermission == PackageManager.PERMISSION_GRANTED && coarseLocationPermission == PackageManager.PERMISSION_GRANTED
+    companion object {
+        private val REQUIRED_PERMISSIONS = mutableListOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+        ).toTypedArray()
     }
 }
 

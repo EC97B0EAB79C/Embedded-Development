@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Camera Sample</string>
+    <string name="title_activity_camera_preview">CameraPreview</string>
 </resources>
